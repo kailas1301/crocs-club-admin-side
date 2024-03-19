@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AdminHome extends StatelessWidget {
-  const AdminHome({super.key});
+class OffersAndCouponsAddingScreen extends StatelessWidget {
+  const OffersAndCouponsAddingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Home Screen'),
+        child: Text('offers and coupons'),
       ),
     );
   }

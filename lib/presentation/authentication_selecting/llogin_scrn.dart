@@ -1,5 +1,5 @@
 import 'package:crocsclub_admin/business_logic/login/bloc/login_bloc_bloc.dart';
-import 'package:crocsclub_admin/presentation/admin_home_screen/admin_home_scrn.dart';
+import 'package:crocsclub_admin/presentation/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:crocsclub_admin/utils/constants.dart';
 import 'package:crocsclub_admin/utils/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
@@ -20,7 +19,6 @@ class LoginScreen extends StatelessWidget {
         listener: (context, state) {
           // Handle different LoginBloc states here
           if (state is LoginBlocLoading) {
-            // Show a loading indicator
             showDialog(
               context: context,
               barrierDismissible: false,
@@ -30,12 +28,11 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is LoginBlocSuccess) {
             // Navigate to the home screen or perform other actions on successful login
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AdminHome(),
-                ),
-                (route) => false); // Assuming '/home' is your home screen route
+                  builder: (context) => const BottomNavBar(),
+                )); // Assuming '/home' is your home screen route
           } else if (state is LoginBlocError) {
             print('error while logging is ${state.errorText}');
             // Show an error message based on the error state
@@ -81,7 +78,7 @@ class LoginScreen extends StatelessWidget {
 
                   // Login button
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         BlocProvider.of<LoginBlocBloc>(context)
                             .add(AdminLoginButtonPressed(
@@ -100,7 +97,7 @@ class LoginScreen extends StatelessWidget {
                     child: const Text('Login'),
                   ),
 
-                  const SizedBox(height: 15.0), // Spacing
+                  kSizedBoxH20, // Spacing
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_bloc.dart';
 import 'package:crocsclub_admin/business_logic/login/bloc/login_bloc_bloc.dart';
+import 'package:crocsclub_admin/business_logic/nav_bar/bloc/navbar_bloc.dart';
 import 'package:crocsclub_admin/presentation/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +21,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => SplashBloc()),
         BlocProvider(
           create: (_) => LoginBlocBloc(httpClient),
-        )
+        ),
+        BlocProvider(create: (_) => NavbarBloc()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
