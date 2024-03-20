@@ -34,7 +34,8 @@ class LoginBlocBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('accessToken', accessToken);
 
-          emit(LoginBlocSuccess()); // Emit with token
+          emit(LoginBlocSuccess()); 
+          // Emit with token
         } else {
           final errorJson = jsonDecode(response.body);
           final errorMessage = errorJson['message'] ?? 'Unknown error occurred';

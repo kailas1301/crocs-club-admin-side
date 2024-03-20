@@ -1,6 +1,8 @@
 import 'package:crocsclub_admin/business_logic/login/bloc/login_bloc_bloc.dart';
 import 'package:crocsclub_admin/presentation/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:crocsclub_admin/utils/constants.dart';
+import 'package:crocsclub_admin/utils/functions/functions.dart';
+import 'package:crocsclub_admin/utils/widgets/elevatedbutton_widget.dart';
 import 'package:crocsclub_admin/utils/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,8 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is LoginBlocSuccess) {
             // Navigate to the home screen or perform other actions on successful login
+            showCustomSnackbar(
+                context, 'Successfully logged in', Colors.green, Colors.black);
             Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -36,11 +40,8 @@ class LoginScreen extends StatelessWidget {
           } else if (state is LoginBlocError) {
             print('error while logging is ${state.errorText}');
             // Show an error message based on the error state
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorText),
-              ),
-            );
+            showCustomSnackbar(context, 'Log in was not successfull',
+                Colors.white, Colors.black);
           }
         },
         child: Center(
@@ -62,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                   // Email text field
                   TextFormFieldWidget(
                     controller: emailController,
-                    labelText: 'E-mail',
+                    hintText: 'E-mail',
                     prefixIcon: Icons.email,
                     errorText: 'Please enter valid E-mail',
                   ),
@@ -70,15 +71,17 @@ class LoginScreen extends StatelessWidget {
 
                   // Password text field
                   TextFormFieldWidget(
+                    prefixIcon: Icons.password,
                     controller: passwordController,
-                    labelText: 'Password',
+                    hintText: 'Password',
                     errorText: 'Please enter a valid password',
                   ),
                   kSizedBoxH20, // Spacing
 
                   // Login button
-                  ElevatedButton(
-                    onPressed: () async {
+                  ElevatedButtonWidget(
+                    buttonText: 'Log In',
+                    onPressed: () {
                       if (formKey.currentState!.validate()) {
                         BlocProvider.of<LoginBlocBloc>(context)
                             .add(AdminLoginButtonPressed(
@@ -87,14 +90,6 @@ class LoginScreen extends StatelessWidget {
                         ));
                       }
                     },
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0, vertical: 15.0),
-                    ),
-                    child: const Text('Login'),
                   ),
 
                   kSizedBoxH20, // Spacing

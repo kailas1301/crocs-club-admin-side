@@ -1,3 +1,5 @@
+import 'package:crocsclub_admin/utils/functions/functions.dart';
+import 'package:crocsclub_admin/utils/widgets/elevatedbutton_widget.dart';
 import 'package:flutter/material.dart';
 
 class UsersScreen extends StatelessWidget {
@@ -5,10 +7,15 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
-        child: Text('Users'),
-      ),
+          child: ElevatedButtonWidget(
+              onPressed: () {
+                adminlogout(context);
+                showCustomSnackbar(context, 'Successfully logged out',
+                    Colors.white, Colors.black);
+              },
+              buttonText: 'Log Out')),
     );
   }
 }

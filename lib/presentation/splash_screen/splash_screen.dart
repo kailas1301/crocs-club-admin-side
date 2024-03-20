@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_bloc.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_event.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_state.dart';
-import 'package:crocsclub_admin/presentation/authentication_selecting/llogin_scrn.dart';
+import 'package:crocsclub_admin/presentation/admin_login/llogin_scrn.dart';
 import 'package:crocsclub_admin/presentation/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -8,15 +8,10 @@ class AddProductingScrn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final nameController = TextEditingController();
-
-    // Trigger initial loading of categories when widget is first built
     context.read<CategoryBloc>().add(LoadCategory());
-
     return Scaffold(
       body: BlocConsumer<CategoryBloc, CategoryState>(
-        listener: (context, state) {
-          // You can handle any additional state changes here if needed
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           if (state is CategoryLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -30,8 +25,44 @@ class AddProductingScrn extends StatelessWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: state.categories.length,
-                    itemBuilder: (context, index) =>
-                        Text(state.categories[index]),
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(vertical: 5.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            title: Text(state.categories[index]),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(Icons.edit),
+                                  onPressed: () {
+                                    // Edit action
+                                  },
+                                ),
+                                IconButton(
+                                  icon: const Icon(Icons.delete),
+                                  onPressed: () {
+                                    // Delete action
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
               ],
             );
