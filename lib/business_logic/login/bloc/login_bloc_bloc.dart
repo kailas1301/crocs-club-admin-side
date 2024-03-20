@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 part 'login_bloc_event.dart';
 part 'login_bloc_state.dart';
 
@@ -26,7 +27,14 @@ class LoginBlocBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
         );
 
         if (response.statusCode == 200 || response.statusCode == 201) {
-          emit(LoginBlocSuccess());
+          final responseJson = jsonDecode(response.body);
+          final accessToken = responseJson['data']['AccessToken'];
+
+          // Save access token using SharedPreferences
+          final prefs = await SharedPreferences.getInstance();
+          await prefs.setString('accessToken', accessToken);
+
+          emit(LoginBlocSuccess()); // Emit with token
         } else {
           final errorJson = jsonDecode(response.body);
           final errorMessage = errorJson['message'] ?? 'Unknown error occurred';

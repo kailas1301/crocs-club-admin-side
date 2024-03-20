@@ -2,50 +2,53 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_bloc.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_event.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_state.dart';
-import 'package:crocsclub_admin/presentation/on_boarding/on_boarding.dart';
+import 'package:crocsclub_admin/presentation/authentication_selecting/llogin_scrn.dart';
+import 'package:crocsclub_admin/presentation/bottom_nav_bar/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
-  const SplashScreen({Key? key}) : super(key: key);
-
+  const SplashScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: Column(
-        mainAxisAlignment: MainAxisAlignment.start, // Center content vertically
-        mainAxisSize: MainAxisSize.min, // Avoid taking full screen height
-        children: [
-          Image.asset('assets/images/splash.png'),
-          const SizedBox(height: 20.0), // Add spacing between logo and text
-          const Text(
-            "Your App Name",
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
+      splash: Image.asset('assets/images/splash.png'),
       splashIconSize: 300,
       nextScreen: BlocProvider<SplashBloc>(
         create: (context) => SplashBloc()..add(SetSplash()),
-        child: BlocConsumer<SplashBloc, SplashState>(
-          listener: (context, state) {
+        child: BlocListener<SplashBloc, SplashState>(
+          listener: (context, state) async {
             if (state is SplashLoadedState) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => OnBoardingScreen()),
-              );
+              final userLoggedInToken = await getToken();
+              if (userLoggedInToken == '') {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              } else {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BottomNavBar()),
+                );
+              }
             }
           },
-          builder: (context, state) {
-            return Container(); // Placeholder widget while waiting for state
-          },
+          child: const SizedBox(), // Placeholder widget while waiting for state
         ),
       ),
       splashTransition: SplashTransition.fadeTransition,
       duration: 2000, // Adjust duration as needed
     );
+  }
+}
+
+Future<String?> getToken() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken') ?? '';
+  } catch (e) {
+    print('Error fetching token: $e');
+    throw Exception('Failed to get access token: $e');
   }
 }
