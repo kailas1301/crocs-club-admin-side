@@ -8,7 +8,7 @@ class CategoryInitial extends CategoryState {}
 class CategoryLoading extends CategoryState {}
 
 class CategoryLoaded extends CategoryState {
-  final List<String> categories;
+  final List<Map<String, dynamic>> categories;
   CategoryLoaded({required this.categories});
 }
 

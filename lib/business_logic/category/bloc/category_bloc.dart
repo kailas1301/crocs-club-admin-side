@@ -10,14 +10,10 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
 
   CategoryBloc() : super(CategoryInitial()) {
     on<LoadCategory>((event, emit) async {
-      print('worked till loadcategory');
       emit(CategoryLoading());
-      print('worked till categoryloading');
       try {
         final categories = await repository.getCategories();
-        print('worked till getcategory function called');
         emit(CategoryLoaded(categories: categories));
-        print('worked till emit categoryLOaded');
       } catch (e) {
         emit(CategoryError(message: e.toString()));
       }
@@ -31,6 +27,28 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         emit(CategoryLoaded(categories: categories));
       } catch (e) {
         emit(CategoryError(message: e.toString()));
+      }
+    });
+
+    on<EditCategory>((event, emit) async {
+      emit(CategoryLoading());
+      try {
+        await repository.editCategory(event.name, event.newName);
+        final categories = await repository.getCategories();
+        emit(CategoryLoaded(categories: categories));
+      } catch (error) {
+        emit(CategoryError(message: error.toString()));
+      }
+    });
+
+    on<DeleteCategory>((event, emit) async {
+      emit(CategoryLoading());
+      try {
+        await repository.deleteCategory(event.id);
+        final categories = await repository.getCategories();
+        emit(CategoryLoaded(categories: categories));
+      } catch (error) {
+        emit(CategoryError(message: error.toString()));
       }
     });
   }
