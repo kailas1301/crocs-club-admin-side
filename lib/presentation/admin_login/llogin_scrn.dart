@@ -19,7 +19,6 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: const Color(0xFFF2F2F2),
       body: BlocListener<LoginBlocBloc, LoginBlocState>(
         listener: (context, state) {
-          // Handle different LoginBloc states here
           if (state is LoginBlocLoading) {
             showDialog(
               context: context,
@@ -29,17 +28,16 @@ class LoginScreen extends StatelessWidget {
               },
             );
           } else if (state is LoginBlocSuccess) {
-            // Navigate to the home screen or perform other actions on successful login
             showCustomSnackbar(
                 context, 'Successfully logged in', Colors.green, Colors.black);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BottomNavBar(),
-                )); // Assuming '/home' is your home screen route
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomNavBar(),
+              ),
+              (route) => false,
+            );
           } else if (state is LoginBlocError) {
-            print('error while logging is ${state.errorText}');
-            // Show an error message based on the error state
             showCustomSnackbar(context, 'Log in was not successfull',
                 Colors.white, Colors.black);
           }

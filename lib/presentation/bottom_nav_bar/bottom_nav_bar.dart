@@ -34,9 +34,9 @@ class BottomNavBar extends StatelessWidget {
             bottomNavigationBar: GNav(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               gap: 8,
-              activeColor: Colors.blue,
+              activeColor: const Color.fromARGB(255, 243, 244, 245),
               iconSize: 24,
-              tabBackgroundColor: Colors.grey,
+              tabBackgroundColor: const Color.fromARGB(255, 93, 92, 92),
               duration: const Duration(milliseconds: 250),
               tabs: [
                 GButton(
@@ -47,21 +47,21 @@ class BottomNavBar extends StatelessWidget {
                       context.read<NavbarBloc>().add(HomePressed()),
                 ),
                 GButton(
-                  icon: Icons.plus_one,
+                  icon: Icons.add,
                   text: 'Add Product',
                   textStyle: const TextStyle(fontSize: 16, color: Colors.white),
                   onPressed: () =>
                       context.read<NavbarBloc>().add(AddProductPressed()),
                 ),
                 GButton(
-                  icon: Icons.attach_money,
-                  text: 'Coupons and Offers',
+                  icon: Icons.local_offer,
+                  text: 'Add deals',
                   textStyle: const TextStyle(fontSize: 16, color: Colors.white),
                   onPressed: () =>
                       context.read<NavbarBloc>().add(OffersCouponsPressed()),
                 ),
                 GButton(
-                  icon: Icons.account_circle,
+                  icon: Icons.people,
                   text: 'Users',
                   textStyle: const TextStyle(fontSize: 16, color: Colors.white),
                   onPressed: () =>
