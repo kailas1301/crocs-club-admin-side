@@ -5,6 +5,7 @@ import 'package:crocsclub_admin/utils/widgets/elevatedbutton_widget.dart';
 import 'package:crocsclub_admin/utils/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AddProductingScrn extends StatelessWidget {
   const AddProductingScrn({super.key});
@@ -14,6 +15,16 @@ class AddProductingScrn extends StatelessWidget {
     final nameController = TextEditingController();
     context.read<CategoryBloc>().add(LoadCategory());
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Categories',
+          style: GoogleFonts.roboto(
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
       body: BlocConsumer<CategoryBloc, CategoryState>(
         listener: (context, state) {},
         builder: (context, state) {
@@ -22,9 +33,10 @@ class AddProductingScrn extends StatelessWidget {
           } else if (state is CategoryLoaded) {
             return Column(
               children: [
-                Text(state.categories.isEmpty
-                    ? 'No categories found'
-                    : 'Categories:'),
+                Center(
+                  child: Text(
+                      state.categories.isEmpty ? 'No categories found' : ''),
+                ),
                 if (state.categories.isNotEmpty)
                   ListView.builder(
                     shrinkWrap: true,

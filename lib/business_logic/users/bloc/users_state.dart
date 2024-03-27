@@ -18,3 +18,15 @@ class UsersError extends UsersState {
 
   UsersError(this.error);
 }
+
+class UserBlocked extends UsersState {
+  final int userId;
+
+  UserBlocked(this.userId);
+}
+
+class UserUnblocked extends UsersState {
+  final int userId;
+
+  UserUnblocked(this.userId);
+}

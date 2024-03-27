@@ -18,5 +18,31 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         emit(UsersError(error.toString())); // Handle error more gracefully
       }
     });
+
+    on<BlockUser>((event, emit) async {
+      try {
+        await usersRepository.blockUser(event.userId);
+        final updatedUsers = await usersRepository.fetchUsers();
+        final blockedUserId = event.userId;
+
+        emit(UserBlocked(blockedUserId));
+        emit(UsersLoaded(updatedUsers)); // Emit separate state for UI update
+      } catch (error) {
+        emit(UsersError(error.toString()));
+      }
+    });
+
+    on<UnblockUser>((event, emit) async {
+      try {
+        await usersRepository.unblockUser(event.userId);
+        final updatedUsers = await usersRepository.fetchUsers();
+        final unblockedUserId = event.userId;
+
+        emit(UserUnblocked(unblockedUserId));
+        emit(UsersLoaded(updatedUsers)); // Emit separate state for UI update
+      } catch (error) {
+        emit(UsersError(error.toString()));
+      }
+    });
   }
 }

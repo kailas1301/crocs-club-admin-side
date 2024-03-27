@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OffersAndCouponsAddingScreen extends StatelessWidget {
   const OffersAndCouponsAddingScreen({super.key});
@@ -10,7 +11,13 @@ class OffersAndCouponsAddingScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Offers and Coupons'),
+          title: Text(
+            'Offers and Coupons',
+            style: GoogleFonts.roboto(
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Coupons'),

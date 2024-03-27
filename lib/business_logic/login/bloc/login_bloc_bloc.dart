@@ -12,9 +12,6 @@ class LoginBlocBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
     on<AdminLoginButtonPressed>((event, emit) async {
       emit(LoginBlocLoading());
       try {
-        print('the email is ${event.email}');
-        print('the password is ${event.password}');
-
         final response = await httpClient.post(
           Uri.parse('http://10.0.2.2:8080/admin/adminlogin'),
           body: jsonEncode({
@@ -34,7 +31,7 @@ class LoginBlocBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('accessToken', accessToken);
 
-          emit(LoginBlocSuccess()); 
+          emit(LoginBlocSuccess());
           // Emit with token
         } else {
           final errorJson = jsonDecode(response.body);
