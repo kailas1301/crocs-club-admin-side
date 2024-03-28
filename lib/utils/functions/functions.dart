@@ -6,6 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// to save the auth token while admin log in
+
+Future<String?> getToken() async {
+  try {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken') ?? '';
+  } catch (e) {
+    print('Error fetching token: $e');
+    throw Exception('Failed to get access token: $e');
+  }
+}
+
+// to log out the admin by clearing the token
+
 Future<void> adminlogout(BuildContext context) async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.setString('accessToken', ''); // Set token to empty string
@@ -18,6 +32,8 @@ Future<void> adminlogout(BuildContext context) async {
       ),
       (route) => false);
 }
+
+// to show the snackbar
 
 void showCustomSnackbar(
     BuildContext context, String text, Color backgroundcolor, Color textcolor) {
@@ -32,6 +48,7 @@ void showCustomSnackbar(
   );
 }
 
+// to show the edit dialougue box to delete the category
 void confirmDelete(BuildContext context, int id, String categoryName) {
   showDialog(
     context: context,
@@ -58,6 +75,7 @@ void confirmDelete(BuildContext context, int id, String categoryName) {
   );
 }
 
+// to show the edit dialougue boc to edit the category
 void showEditDialog(BuildContext context, String categoryName) {
   final editController = TextEditingController(text: categoryName);
   showDialog(

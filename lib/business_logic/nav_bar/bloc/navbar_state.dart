@@ -7,7 +7,7 @@ final class NavbarInitial extends NavbarState {}
 
 final class HomeSelected extends NavbarState {}
 
-final class AddProductSelected extends NavbarState {}
+final class AddCategorySelected extends NavbarState {}
 
 final class OffersCouponsSelected extends NavbarState {}
 

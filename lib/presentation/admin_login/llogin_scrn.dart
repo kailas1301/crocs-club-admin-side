@@ -16,7 +16,7 @@ class LoginScreen extends StatelessWidget {
     TextEditingController passwordController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: kwhiteColour,
       body: BlocListener<LoginBlocBloc, LoginBlocState>(
         listener: (context, state) {
           if (state is LoginBlocLoading) {
@@ -52,7 +52,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   // Crocs logo
                   Image.asset(
-                    'assets/images/pngegg.png',
+                    'assets/images/CROCS.png',
                     height: 100,
                     width: 100,
                   ),

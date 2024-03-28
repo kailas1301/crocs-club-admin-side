@@ -1,5 +1,5 @@
 import 'package:crocsclub_admin/business_logic/nav_bar/bloc/navbar_bloc.dart';
-import 'package:crocsclub_admin/presentation/add_product/add_products.dart';
+import 'package:crocsclub_admin/presentation/add_product/add_cart.dart';
 import 'package:crocsclub_admin/presentation/admin_home_screen/admin_home_scrn.dart';
 import 'package:crocsclub_admin/presentation/offers_and_coupons/offers_coupons_add.dart';
 import 'package:crocsclub_admin/presentation/users_screen/users_screen.dart';
@@ -21,8 +21,8 @@ class BottomNavBar extends StatelessWidget {
 
           if (state is HomeSelected) {
             currentScreen = const AdminHome();
-          } else if (state is AddProductSelected) {
-            currentScreen = const AddProductingScrn();
+          } else if (state is AddCategorySelected) {
+            currentScreen = const AddCategoryScrn();
           } else if (state is OffersCouponsSelected) {
             currentScreen = const OffersAndCouponsAddingScreen();
           } else if (state is UserSelected) {

@@ -4,9 +4,9 @@ import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_event.dart';
 import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_state.dart';
 import 'package:crocsclub_admin/presentation/admin_login/llogin_scrn.dart';
 import 'package:crocsclub_admin/presentation/bottom_nav_bar/bottom_nav_bar.dart';
+import 'package:crocsclub_admin/utils/functions/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -40,15 +40,5 @@ class SplashScreen extends StatelessWidget {
       splashTransition: SplashTransition.fadeTransition,
       duration: 2000, // Adjust duration as needed
     );
-  }
-}
-
-Future<String?> getToken() async {
-  try {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('accessToken') ?? '';
-  } catch (e) {
-    print('Error fetching token: $e');
-    throw Exception('Failed to get access token: $e');
   }
 }

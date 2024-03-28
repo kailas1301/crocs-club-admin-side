@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:crocsclub_admin/presentation/splash_screen/splash_screen.dart';
+import 'package:crocsclub_admin/utils/functions/functions.dart';
 import 'package:http/http.dart' as http;
 
 class AdminCategoryRepo {
@@ -103,13 +103,12 @@ class AdminCategoryRepo {
     }
   }
 
-  Future<void> editCategory(String id, String newName) async {
+  Future<void> editCategory(String name, String newName) async {
     String? token = await getToken();
     final url = Uri.parse(baseUrl);
 
-    // Prepare the request body with current and new names
     final body = jsonEncode({
-      'current': id, // Assuming 'id' represents the current name
+      'current': name,
       'new': newName,
     });
 
@@ -125,14 +124,12 @@ class AdminCategoryRepo {
       );
 
       if (response.statusCode == 200) {
-        print('Category with ID $id updated successfully!');
-        // Handle successful update (e.g., display a confirmation message)
+        print('Category with ID $name updated successfully!');
       } else {
         throw Exception('Failed to update category: ${response.statusCode}');
       }
     } catch (e) {
       print('Error updating category: $e');
-      // Handle errors appropriately (e.g., display an error message to the user)
     }
   }
 }

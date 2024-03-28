@@ -55,16 +55,19 @@ class UsersScreen extends StatelessWidget {
                     subtitle: Text(user.email),
                     trailing: ElevatedButton(
                       onPressed: () {
+                        print('the user blocstatus is ${user.blockStatus}');
                         if (user.blockStatus == true) {
                           BlocProvider.of<UsersBloc>(context)
                               .add(UnblockUser(user.id));
-                        } else {
+                          BlocProvider.of<UsersBloc>(context).add(FetchUsers());
+                        } else if (user.blockStatus == false) {
                           BlocProvider.of<UsersBloc>(context)
                               .add(BlockUser(user.id));
+                          BlocProvider.of<UsersBloc>(context).add(FetchUsers());
                         }
                       },
                       child:
-                          Text(user.blockStatus == true ? 'Unblock' : 'Block'),
+                          Text(user.blockStatus == true ? 'unlock' : 'block'),
                     ),
                   ),
                 );

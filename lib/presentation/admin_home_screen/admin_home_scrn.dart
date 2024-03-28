@@ -47,15 +47,15 @@ class AdminHome extends StatelessWidget {
   }
 }
 
-class Product {
+class DemoProduct {
   final String name;
   final String imageUrl;
 
-  Product({required this.name, required this.imageUrl});
+  DemoProduct({required this.name, required this.imageUrl});
 }
 
 class ProductCard extends StatelessWidget {
-  final Product product;
+  final DemoProduct product;
 
   const ProductCard({super.key, required this.product});
 
@@ -97,11 +97,11 @@ class ProductCard extends StatelessWidget {
 }
 
 // Sample product data
-final List<Product> products = [
-  Product(name: 'Product 1', imageUrl: 'https://via.placeholder.com/150'),
-  Product(name: 'Product 2', imageUrl: 'https://via.placeholder.com/150'),
-  Product(name: 'Product 3', imageUrl: 'https://via.placeholder.com/150'),
-  Product(name: 'Product 4', imageUrl: 'https://via.placeholder.com/150'),
-  Product(name: 'Product 5', imageUrl: 'https://via.placeholder.com/150'),
-  Product(name: 'Product 6', imageUrl: 'https://via.placeholder.com/150'),
+final List<DemoProduct> products = [
+  DemoProduct(name: 'Product 1', imageUrl: 'https://via.placeholder.com/150'),
+  DemoProduct(name: 'Product 2', imageUrl: 'https://via.placeholder.com/150'),
+  DemoProduct(name: 'Product 3', imageUrl: 'https://via.placeholder.com/150'),
+  DemoProduct(name: 'Product 4', imageUrl: 'https://via.placeholder.com/150'),
+  DemoProduct(name: 'Product 5', imageUrl: 'https://via.placeholder.com/150'),
+  DemoProduct(name: 'Product 6', imageUrl: 'https://via.placeholder.com/150'),
 ];

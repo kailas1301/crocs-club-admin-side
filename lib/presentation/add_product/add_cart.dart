@@ -1,4 +1,5 @@
 import 'package:crocsclub_admin/business_logic/category/bloc/category_bloc.dart';
+import 'package:crocsclub_admin/presentation/add_product/add_product.dart';
 import 'package:crocsclub_admin/utils/constants.dart';
 import 'package:crocsclub_admin/utils/functions/functions.dart';
 import 'package:crocsclub_admin/utils/widgets/elevatedbutton_widget.dart';
@@ -7,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AddProductingScrn extends StatelessWidget {
-  const AddProductingScrn({super.key});
+class AddCategoryScrn extends StatelessWidget {
+  const AddCategoryScrn({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,9 @@ class AddProductingScrn extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is CategoryLoading) {
-            return const Center(child: CircularProgressIndicator());
+            Future.delayed(const Duration(milliseconds: 500), () {
+              return const Center(child: CircularProgressIndicator());
+            });
           } else if (state is CategoryLoaded) {
             return Column(
               children: [
@@ -43,41 +46,50 @@ class AddProductingScrn extends StatelessWidget {
                     itemCount: state.categories.length,
                     itemBuilder: (context, index) {
                       final category = state.categories[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(vertical: 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey.withOpacity(0.5),
-                                spreadRadius: 2,
-                              ),
-                            ],
+                      return InkWell(
+                        onTap: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AddInventoryItemScreen(
+                            id: category['id'],
+                            categoryName: category['category'],
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: ListTile(
-                              title: Text(category['category']),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  IconButton(
-                                    icon: const Icon(Icons.edit),
-                                    onPressed: () {
-                                      showEditDialog(
-                                          context, category['category']);
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete),
-                                    onPressed: () {
-                                      confirmDelete(context, category['id'],
-                                          category['category']);
-                                    },
-                                  ),
-                                ],
+                        )),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Container(
+                            margin: const EdgeInsets.symmetric(vertical: 5.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: ListTile(
+                                title: Text(category['category']),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit),
+                                      onPressed: () {
+                                        showEditDialog(
+                                            context, category['category']);
+                                      },
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(Icons.delete),
+                                      onPressed: () {
+                                        confirmDelete(context, category['id'],
+                                            category['category']);
+                                      },
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

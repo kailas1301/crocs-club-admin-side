@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:crocsclub_admin/data/models/users.dart';
 import 'package:crocsclub_admin/data/repositories/users_repo.dart';
 import 'package:meta/meta.dart';
-
 part 'users_event.dart';
 part 'users_state.dart';
 
@@ -26,7 +25,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         final blockedUserId = event.userId;
 
         emit(UserBlocked(blockedUserId));
-        emit(UsersLoaded(updatedUsers)); // Emit separate state for UI update
+        emit(UsersLoaded(updatedUsers));
       } catch (error) {
         emit(UsersError(error.toString()));
       }
@@ -39,7 +38,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
         final unblockedUserId = event.userId;
 
         emit(UserUnblocked(unblockedUserId));
-        emit(UsersLoaded(updatedUsers)); // Emit separate state for UI update
+        emit(UsersLoaded(updatedUsers));
       } catch (error) {
         emit(UsersError(error.toString()));
       }
