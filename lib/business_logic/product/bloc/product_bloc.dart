@@ -11,15 +11,6 @@ part 'product_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductService productservice = ProductService();
   ProductBloc() : super(ProductInitial()) {
-    // on<FetchProducts>((event, emit) async {
-    //   emit(ProductLoading());
-    //   try {
-    //     final products = await productservice.fetchProducts();
-    //     emit(ProductLoaded(products: products));
-    //   } catch (e) {
-    //     emit(ProductError());
-    //   }
-    // });
     on<PostProduct>((event, emit) async {
       emit(ProductLoading());
       try {
@@ -46,5 +37,17 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }
       },
     );
+    on<FetchProducts>((event, emit) async {
+      print('the length of productlist is ');
+      emit(ProductLoading());
+      try {
+        final productslist = await productservice.getProducts();
+        print('the length of productlist from is ${productslist}');
+        emit(ProductLoaded(products: productslist));
+        print('emitted product loaded');
+      } catch (e) {
+        emit(ProductError());
+      }
+    });
   }
 }

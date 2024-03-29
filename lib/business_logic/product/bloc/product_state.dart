@@ -5,20 +5,20 @@ sealed class ProductState {}
 
 final class ProductInitial extends ProductState {}
 
-class ProductLoading extends ProductState {}
+final class ProductLoading extends ProductState {}
 
-class ProductLoaded extends ProductState {
-  final List<Product> products;
+final class ProductLoaded extends ProductState {
+  final List<ProductFromApi> products;
 
   ProductLoaded({required this.products});
 }
 
-class ProductPosted extends ProductState {}
+final class ProductPosted extends ProductState {}
 
-class ImagePicked extends ProductState {
+final class ImagePicked extends ProductState {
   final File imageFile;
 
   ImagePicked({required this.imageFile});
 }
 
-class ProductError extends ProductState {}
+final class ProductError extends ProductState {}
