@@ -1,10 +1,10 @@
-import 'package:crocsclub_admin/business_logic/Splash/bloc/splash_bloc.dart';
-import 'package:crocsclub_admin/business_logic/category/bloc/category_bloc.dart';
-import 'package:crocsclub_admin/business_logic/login/bloc/login_bloc_bloc.dart';
-import 'package:crocsclub_admin/business_logic/nav_bar/bloc/navbar_bloc.dart';
-import 'package:crocsclub_admin/business_logic/product/bloc/product_bloc.dart';
-import 'package:crocsclub_admin/business_logic/users/bloc/users_bloc.dart';
-import 'package:crocsclub_admin/presentation/splash_screen/splash_screen.dart';
+import 'package:crocsclub_admin/application/business_logic/Splash/bloc/splash_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/category/bloc/category_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/login/bloc/login_bloc_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/nav_bar/bloc/navbar_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/users/bloc/users_bloc.dart';
+import 'package:crocsclub_admin/application/presentation/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
