@@ -1,6 +1,12 @@
 import 'dart:io';
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
+import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/models/product.dart';
+import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/textformfield_widget.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
+import 'package:crocsclub_admin/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +24,6 @@ class AddInventoryItemScreen extends StatelessWidget {
     'M6',
     'M7',
     'M8',
-    'M9',
     'M10',
     'K1',
     'K2',
@@ -44,7 +49,8 @@ class AddInventoryItemScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Inventory Item'),
+        centerTitle: true,
+        title: const AppBarTextWidget(title: 'Add Product'),
       ),
       body: BlocConsumer<ProductBloc, ProductState>(
         listener: (context, state) {
@@ -56,14 +62,14 @@ class AddInventoryItemScreen extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Product Added Successfully'),
-                backgroundColor: Colors.green,
+                backgroundColor: kGreenColour,
               ),
             );
           } else if (state is ProductError) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('There was an error while adding.'),
-                backgroundColor: Colors.red,
+                backgroundColor: kRedColour,
               ),
             );
           }
@@ -81,7 +87,7 @@ class AddInventoryItemScreen extends StatelessWidget {
                     },
                     child: Container(
                       width: double.infinity,
-                      height: 200,
+                      height: screenHeight * .3,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15.0),
                         boxShadow: [
@@ -95,88 +101,92 @@ class AddInventoryItemScreen extends StatelessWidget {
                         ],
                       ),
                       child: image == null
-                          ? const Icon(Icons.add_a_photo, size: 50)
+                          ? const Icon(Icons.photo, size: 50)
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
-                              child:
-                                  Image.file(image!), // Display selected image
+                              child: Image.file(
+                                image!,
+                                fit: BoxFit.cover,
+                              ), // Display selected image
                             ),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  DropdownButtonFormField<String>(
-                    value: selectedSize,
-                    hint: const Text('Select Size'),
-                    items: sizes.map((size) {
-                      return DropdownMenuItem<String>(
-                        value: size,
-                        child: Text(size),
-                      );
-                    }).toList(),
-                    onChanged: (value) {
-                      selectedSize = value;
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please select a size.';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Name',
+                  kSizedBoxH20,
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: const Color.fromARGB(255, 184, 184, 184)
+                              .withOpacity(0.5),
+                          spreadRadius: 2,
+                          blurRadius: 1,
+                          offset:
+                              const Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
                     ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DropdownButtonFormField<String>(
+                        value: selectedSize,
+                        hint: const Text('Select Size'),
+                        items: sizes.map((size) {
+                          return DropdownMenuItem<String>(
+                            value: size,
+                            child: Text(size),
+                          );
+                        }).toList(),
+                        onChanged: (value) {
+                          selectedSize = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please select a size.';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                  ),
+                  kSizedBoxH10,
+                  TextFormFieldWidget(
+                    validatorFunction: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter a valid Product name';
+                      }
+                      return null; // Valid
+                    },
+                    hintText: 'Product Name',
                     controller: nameController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name.';
-                      }
-                      return null;
-                    },
                   ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Stock',
-                    ),
-                    controller: stockController,
+                  kSizedBoxH10,
+                  TextFormFieldWidget(
                     keyboardType: TextInputType.number,
-                    validator: (value) {
+                    validatorFunction: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter the stock.';
+                        return 'Enter a valid Stock';
                       }
-                      try {
-                        int.parse(value);
-                      } catch (_) {
-                        return 'Please enter a valid number for stock.';
-                      }
-                      return null;
+                      return null; // Valid
                     },
+                    hintText: 'Product Stock',
+                    controller: stockController,
                   ),
-                  const SizedBox(height: 10),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Price',
-                    ),
+                  kSizedBoxH10,
+                  TextFormFieldWidget(
+                    keyboardType: TextInputType.number,
+                    validatorFunction: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Enter a valid price';
+                      }
+                      return null; // Valid
+                    },
+                    hintText: 'Product Price',
                     controller: priceController,
-                    keyboardType:
-                        const TextInputType.numberWithOptions(decimal: true),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter the price.';
-                      }
-                      try {
-                        double.parse(value);
-                      } catch (_) {
-                        return 'Please enter a valid price.';
-                      }
-                      return null;
-                    },
                   ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
+                  kSizedBoxH20,
+                  ElevatedButtonWidget(
+                    buttonText: 'Add Product',
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         final product = Product(
@@ -189,15 +199,13 @@ class AddInventoryItemScreen extends StatelessWidget {
                         BlocProvider.of<ProductBloc>(context)
                             .add(PostProduct(product: product));
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                                'Please fix form errors before submitting.'),
-                          ),
-                        );
+                        showCustomSnackbar(
+                            context,
+                            'Please fix form errors before submitting.',
+                            kRedColour,
+                            kwhiteColour);
                       }
                     },
-                    child: const Text('Add Item'),
                   ),
                 ],
               ),

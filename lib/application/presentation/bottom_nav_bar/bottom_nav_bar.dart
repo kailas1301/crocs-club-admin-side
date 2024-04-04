@@ -3,6 +3,7 @@ import 'package:crocsclub_admin/application/presentation/add_category/add_catego
 import 'package:crocsclub_admin/application/presentation/admin_home_screen/admin_home_scrn.dart';
 import 'package:crocsclub_admin/application/presentation/offers_and_coupons/offers_coupons_add.dart';
 import 'package:crocsclub_admin/application/presentation/users_screen/users_screen.dart';
+import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -34,36 +35,36 @@ class BottomNavBar extends StatelessWidget {
             bottomNavigationBar: GNav(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               gap: 8,
-              activeColor: const Color.fromARGB(255, 243, 244, 245),
+              activeColor: kwhiteColour,
               iconSize: 24,
-              tabBackgroundColor: const Color.fromARGB(255, 93, 92, 92),
+              tabBackgroundColor: kAppBarColor,
               duration: const Duration(milliseconds: 250),
               tabs: [
                 GButton(
                   icon: Icons.home,
                   text: 'Home',
-                  textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
                   onPressed: () =>
                       context.read<NavbarBloc>().add(HomePressed()),
                 ),
                 GButton(
                   icon: Icons.add,
                   text: 'Add Product',
-                  textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
                   onPressed: () =>
                       context.read<NavbarBloc>().add(AddProductPressed()),
                 ),
                 GButton(
                   icon: Icons.local_offer,
                   text: 'Add deals',
-                  textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
                   onPressed: () =>
                       context.read<NavbarBloc>().add(OffersCouponsPressed()),
                 ),
                 GButton(
                   icon: Icons.people,
                   text: 'Users',
-                  textStyle: const TextStyle(fontSize: 16, color: Colors.white),
+                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
                   onPressed: () =>
                       context.read<NavbarBloc>().add(UserPressed()),
                 ),

@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 final http.Client httpClient = http.Client();
+late double screenWidth;
+late double screenHeight;
 void main() {
   runApp(const MyApp());
 }
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    screenWidth = MediaQuery.of(context).size.width;
+    screenHeight = MediaQuery.of(context).size.height;
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => SplashBloc()),

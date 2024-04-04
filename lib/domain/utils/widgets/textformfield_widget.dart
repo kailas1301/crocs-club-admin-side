@@ -3,21 +3,27 @@ import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
-    Key? key,
+    super.key,
     required this.controller,
     required this.hintText,
     this.prefixIcon,
-    required this.errorText,
+    this.errorText,
     this.suffixIcon,
     this.obscureText,
-  }) : super(key: key);
+    this.validatorFunction,
+    this.keyboardType,
+    this.maxLength,
+  });
 
   final TextEditingController controller;
   final String hintText;
   final IconData? prefixIcon;
-  final String errorText;
+  final String? errorText;
   final IconData? suffixIcon;
   final bool? obscureText;
+  final Function(String?)? validatorFunction;
+  final TextInputType? keyboardType;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -34,45 +40,50 @@ class TextFormFieldWidget extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        maxLength: maxLength,
+        keyboardType: keyboardType,
         obscureText: obscureText ?? false,
         controller: controller,
         decoration: InputDecoration(
           suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
           fillColor: kGreyColour,
           hintText: hintText,
+          errorText: errorText, // Custom error text
           errorBorder: OutlineInputBorder(
-            // Define border when there's an error
+            // Remove border when there is an error
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Colors.transparent),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            // Define border when field is focused with error
+            // Remove border when focused with error
             borderRadius: BorderRadius.circular(10.0),
             borderSide: const BorderSide(color: Colors.transparent),
           ),
           border: OutlineInputBorder(
             // Define default border
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: kGreyColour),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           enabledBorder: OutlineInputBorder(
             // Define border when field is enabled
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: kGreyColour),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           focusedBorder: OutlineInputBorder(
             // Define border when field is focused
             borderRadius: BorderRadius.circular(10.0),
-            borderSide: const BorderSide(color: kGreyColour),
+            borderSide: const BorderSide(color: Colors.transparent),
           ),
           prefixIcon: prefixIcon != null ? Icon(prefixIcon) : null,
         ),
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return errorText;
-          }
-          return null; // Valid
-        },
+        validator: validatorFunction != null
+            ? (value) => validatorFunction!(value)
+            : (value) {
+                if (value == null || value.isEmpty) {
+                  return errorText;
+                }
+                return null; // Valid
+              },
       ),
     );
   }

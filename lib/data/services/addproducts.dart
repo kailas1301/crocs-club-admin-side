@@ -57,4 +57,40 @@ class ProductService {
       throw Exception('Unexpected error: $error');
     }
   }
+
+  Future<Response<dynamic>> updateStock(int productId, int newStock) async {
+    final token =
+        await getToken(); // Assuming you have a method to retrieve the authentication token
+    dio.options.headers['Authorization'] = 'Bearer $token';
+
+    final jsonData = {"product_id": productId, "stock": newStock};
+
+    try {
+      final response = await dio.put(
+        'http://10.0.2.2:8080/admin/inventories/stock',
+        data: jsonData,
+        options: Options(contentType: Headers.jsonContentType),
+      );
+      return response;
+    } on DioException catch (error) {
+      throw Exception('Error updating stock: ${error.message}');
+    }
+  }
+
+  Future<Response<dynamic>> deleteInventory(int inventoryId) async {
+    final token =
+        await getToken(); // Assuming you have a method to retrieve the authentication token
+    dio.options.headers['Authorization'] = 'Bearer $token';
+
+    try {
+      final response = await dio.delete(
+        'http://10.0.2.2:8080/admin/inventories',
+        queryParameters: {'id': inventoryId},
+        options: Options(contentType: Headers.jsonContentType),
+      );
+      return response;
+    } on DioException catch (error) {
+      throw Exception('Error deleting inventory item: ${error.message}');
+    }
+  }
 }

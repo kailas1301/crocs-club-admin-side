@@ -1,10 +1,16 @@
+import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
+import 'package:crocsclub_admin/application/presentation/admin_home_screen/admin_home_scrn.dart';
+import 'package:crocsclub_admin/domain/core/constants/constants.dart';
+import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/textformfield_widget.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crocsclub_admin/domain/models/product.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ProductDetail extends StatelessWidget {
-  const ProductDetail({Key? key, required this.product}) : super(key: key);
+  const ProductDetail({super.key, required this.product});
 
   final ProductFromApi product;
 
@@ -13,83 +19,185 @@ class ProductDetail extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(product.productName),
+        title: AppBarTextWidget(title: product.productName.toUpperCase()),
       ),
-      body: Padding(
+      body: BlocConsumer<ProductBloc, ProductState>(
+        listener: (context, state) {
+          if (state is ProductStockUpdated) {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const AdminHome(),
+                ),
+                (route) => false);
+            showCustomSnackbar(context, 'Sucessfully updated the stock',
+                kGreenColour, kblackColour);
+          }
+          if (state is ProductDeleted) {
+            showCustomSnackbar(context, 'Sucessfully deleted the stock',
+                kGreenColour, kblackColour);
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(
+                  builder: (context) => const AdminHome(),
+                ),
+                (route) => false);
+          }
+        },
+        builder: (context, state) {
+          if (state is ProductLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is ProductLoaded) {
+            return buildProductDetail(context, product);
+          } else {
+            return const Center(child: SubHeadingTextWidget(title: ''));
+          }
+        },
+      ),
+    );
+  }
+
+  Widget buildProductDetail(BuildContext context, ProductFromApi product) {
+    return SingleChildScrollView(
+      child: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(child: buildImageListView(product.image, context)),
-              Text(
-                product.productName,
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Text(
-                    'Size: ${product.size}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  Text(
-                    'Price: ₹${product.price.toStringAsFixed(2)}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8.0),
-              Row(
-                children: [
-                  Text(
-                    'Stock: ${product.stock}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const Spacer(),
-                  ElevatedButtonWidget(
-                    buttonText: 'Update Stock',
-                    onPressed: () {
-                      // Handle update stock logic
-                      // (e.g., navigate to a separate update screen)
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8.0),
-              ElevatedButtonWidget(
-                buttonText: 'Delete Product',
-                onPressed: () {
-                  // Handle delete product logic
-                  // (e.g., show confirmation dialog)
-                },
+        child: Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: kwhiteColour,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: const Color.fromARGB(255, 62, 62, 62).withOpacity(0.5),
+                spreadRadius: 2,
+                blurRadius: 2,
+                offset: const Offset(1, 1), // changes position of shadow
               ),
             ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 3,
+                  width: double.infinity,
+                  child: PageView.builder(
+                    itemCount: product.image.length,
+                    itemBuilder: (context, index) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          product.image[index],
+                          fit: BoxFit.fill,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+                kSizedBoxH30,
+                HeadingTextWidget(
+                    title: 'Name: ${product.productName.toUpperCase()}'),
+                kSizedBoxH10,
+                HeadingTextWidget(
+                  title: 'Size: ${product.size}',
+                ),
+                kSizedBoxH10,
+                HeadingTextWidget(
+                  title: 'Price: ₹${product.price.floor().toString()}',
+                ),
+                kSizedBoxH10,
+                HeadingTextWidget(
+                  title: 'Stock: ${product.stock}',
+                ),
+                kSizedBoxH10,
+                ElevatedButtonWidget(
+                  buttonText: 'Update Stock',
+                  onPressed: () {
+                    _showUpdateStockDialog(context, product);
+                  },
+                ),
+                kSizedBoxH10,
+                ElevatedButtonWidget(
+                  buttonText: 'Delete Product',
+                  onPressed: () {
+                    confirmDelete(
+                      context: context,
+                      id: product.id,
+                      categoryName: product.productName,
+                      onPressed: () {
+                        BlocProvider.of<ProductBloc>(context).add(
+                          DeleteProductEvent(productId: product.id),
+                        );
+                        Navigator.of(context).pop();
+                      },
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget buildImageListView(List<String> imageUrls, BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height / 3,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: imageUrls.length,
-        itemBuilder: (context, index) {
-          final imageUrl = imageUrls[index];
-          return Container(
-            decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              width: MediaQuery.of(context).size.width * .9,
+  void _showUpdateStockDialog(BuildContext context, ProductFromApi product) {
+    TextEditingController stockController = TextEditingController();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const HeadingTextWidget(title: 'Update Stock'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SubHeadingTextWidget(title: 'Old Stock: ${product.stock}'),
+              kSizedBoxH10,
+              TextFormFieldWidget(
+                controller: stockController,
+                keyboardType: TextInputType.number,
+                hintText: 'New Stock',
+                validatorFunction: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'New Stock is required';
+                  } else if (int.parse(value) <= 0) {
+                    return 'Should be greater than 0';
+                  }
+                  return null; // Valid
+                },
+              )
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                if (int.parse(stockController.text) >= 0 &&
+                    stockController.text.isNotEmpty) {
+                  BlocProvider.of<ProductBloc>(context).add(
+                    UpdateStockEvent(
+                        productId: product.id,
+                        newStock: int.parse(stockController.text)),
+                  );
+                  Navigator.of(context).pop();
+                } else {
+                  showCustomSnackbar(context, "The stock was not updated",
+                      kRedColour, kwhiteColour);
+                  Navigator.of(context).pop();
+                }
+              },
+              child: const Text('Update'),
             ),
-          );
-        },
-      ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
     );
   }
 }

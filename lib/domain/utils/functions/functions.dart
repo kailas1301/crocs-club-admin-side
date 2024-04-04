@@ -32,20 +32,18 @@ Future<void> adminlogout(BuildContext context) async {
           content: const Text('Are you sure you want to log out?'),
           actions: <Widget>[
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButtonWidget(
                   buttonText: 'Yes',
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(true); // Return true when confirmed
+                    Navigator.of(context).pop(true);
                   },
                 ),
                 ElevatedButtonWidget(
                   buttonText: 'No',
                   onPressed: () {
-                    Navigator.of(context)
-                        .pop(false); // Return false when canceled
+                    Navigator.of(context).pop(false);
                   },
                 ),
               ],
@@ -60,6 +58,8 @@ Future<void> adminlogout(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('accessToken', ''); // Set token to empty string
     print('Logged out successfully!');
+    showCustomSnackbar(
+        context, 'Successfully logged out', kGreenColour, kblackColour);
     Navigator.pushAndRemoveUntil(
       // ignore: use_build_context_synchronously
       context,
@@ -87,7 +87,12 @@ void showCustomSnackbar(
 }
 
 // to show the edit dialougue box to delete the category
-void confirmDelete(BuildContext context, int id, String categoryName) {
+void confirmDelete({
+  required Function onPressed,
+  required BuildContext context,
+  required int id,
+  required String categoryName,
+}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -102,7 +107,7 @@ void confirmDelete(BuildContext context, int id, String categoryName) {
           ),
           TextButton(
             onPressed: () {
-              context.read<CategoryBloc>().add(DeleteCategory(id: id));
+              onPressed();
               Navigator.pop(context);
             },
             child: const Text('Delete'),
@@ -126,9 +131,15 @@ void showEditDialog(BuildContext context, String categoryName) {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormFieldWidget(
-                  controller: editController,
-                  hintText: 'Category Name',
-                  errorText: 'Please give a valid name'),
+                controller: editController,
+                hintText: 'Category Name',
+                validatorFunction: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Enter a valid category name';
+                  }
+                  return null; // Valid
+                },
+              ),
               kSizedBoxH10,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

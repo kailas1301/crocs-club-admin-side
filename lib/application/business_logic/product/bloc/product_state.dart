@@ -21,4 +21,8 @@ final class ImagePicked extends ProductState {
   ImagePicked({required this.imageFile});
 }
 
+final class ProductStockUpdated extends ProductState {}
+
+final class ProductDeleted extends ProductState {}
+
 final class ProductError extends ProductState {}

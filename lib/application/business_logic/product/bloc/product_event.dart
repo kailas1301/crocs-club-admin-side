@@ -12,3 +12,16 @@ class PostProduct extends ProductEvent {
 }
 
 class PickImage extends ProductEvent {}
+
+class UpdateStockEvent extends ProductEvent {
+  final int productId;
+  final int newStock;
+
+  UpdateStockEvent({required this.productId, required this.newStock});
+}
+
+class DeleteProductEvent extends ProductEvent {
+  final int productId;
+
+  DeleteProductEvent({required this.productId});
+}

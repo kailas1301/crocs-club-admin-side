@@ -49,5 +49,44 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(ProductError());
       }
     });
+
+    on<UpdateStockEvent>((event, emit) async {
+      emit(ProductLoading());
+      try {
+        final response =
+            await productservice.updateStock(event.productId, event.newStock);
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          final productslist = await productservice.getProducts();
+          print('the length of productlist from is ${productslist}');
+          emit(ProductLoaded(products: productslist));
+          emit(ProductStockUpdated());
+        } else {
+          print('Failed to update stock: ${response.statusMessage}');
+          emit(ProductError());
+        }
+      } catch (e) {
+        print('Error updating stock: $e');
+      }
+    });
+
+    on<DeleteProductEvent>((event, emit) async {
+      emit(ProductLoading());
+      try {
+        final response = await productservice.deleteInventory(event.productId);
+
+        if (response.statusCode == 200) {
+          final productslist = await productservice.getProducts();
+          emit(ProductLoaded(products: productslist));
+          emit(ProductDeleted());
+        } else {
+          print('Failed to delete product: ${response.statusMessage}');
+          emit(ProductError());
+        }
+      } catch (e) {
+        print('Error deleting product: $e');
+        emit(ProductError());
+      }
+    });
   }
 }

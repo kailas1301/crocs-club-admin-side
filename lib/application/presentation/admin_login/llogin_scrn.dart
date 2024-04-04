@@ -14,7 +14,6 @@ class LoginScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-
     return Scaffold(
       backgroundColor: kwhiteColour,
       body: BlocListener<LoginBlocBloc, LoginBlocState>(
@@ -29,7 +28,7 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is LoginBlocSuccess) {
             showCustomSnackbar(
-                context, 'Successfully logged in', Colors.green, Colors.black);
+                context, 'Successfully logged in', kGreenColour, kblackColour);
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -38,8 +37,9 @@ class LoginScreen extends StatelessWidget {
               (route) => false,
             );
           } else if (state is LoginBlocError) {
+            Navigator.pop(context);
             showCustomSnackbar(context, 'Log in was not successfull',
-                Colors.white, Colors.black);
+                kwhiteColour, kblackColour);
           }
         },
         child: Center(
@@ -63,7 +63,20 @@ class LoginScreen extends StatelessWidget {
                     controller: emailController,
                     hintText: 'E-mail',
                     prefixIcon: Icons.email,
-                    errorText: 'Please enter valid E-mail',
+                    validatorFunction: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'E-mail is required';
+                      }
+                      final emailRegex = RegExp(
+                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                        caseSensitive: false,
+                        multiLine: false,
+                      );
+                      if (!emailRegex.hasMatch(value)) {
+                        return 'Please enter a valid E-mail';
+                      }
+                      return null; // Valid
+                    },
                   ),
                   kSizedBoxH20, // Spacing
 
@@ -72,7 +85,15 @@ class LoginScreen extends StatelessWidget {
                     prefixIcon: Icons.password,
                     controller: passwordController,
                     hintText: 'Password',
-                    errorText: 'Please enter a valid password',
+                    validatorFunction: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+                      if (value.length < 6) {
+                        return 'Password must be at least 6 characters long';
+                      }
+                      return null; // Valid
+                    },
                   ),
                   kSizedBoxH20, // Spacing
 
@@ -81,15 +102,13 @@ class LoginScreen extends StatelessWidget {
                     buttonText: 'Log In',
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        BlocProvider.of<LoginBlocBloc>(context)
-                            .add(AdminLoginButtonPressed(
-                          email: emailController.text,
-                          password: passwordController.text,
-                        ));
+                        BlocProvider.of<LoginBlocBloc>(context).add(
+                            AdminLoginButtonPressed(
+                                email: emailController.text,
+                                password: passwordController.text));
                       }
                     },
                   ),
-
                   kSizedBoxH20, // Spacing
                 ],
               ),
