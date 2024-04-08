@@ -26,3 +26,18 @@ final class ProductStockUpdated extends ProductState {}
 final class ProductDeleted extends ProductState {}
 
 final class ProductError extends ProductState {}
+
+class ImageUploadInitial extends ProductState {}
+
+class ImageUploadLoading extends ProductState {}
+
+class ImageUploadSuccess extends ProductState {
+  final String message;
+  ImageUploadSuccess({required this.message});
+}
+
+class ImageUploadFailure extends ProductState {
+  final String error;
+
+  ImageUploadFailure({required this.error});
+}

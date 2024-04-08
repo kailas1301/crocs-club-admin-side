@@ -2,6 +2,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:crocsclub_admin/domain/models/product.dart';
 import 'package:crocsclub_admin/data/services/addproducts.dart';
+import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/main.dart';
+import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meta/meta.dart';
 
@@ -37,6 +40,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         }
       },
     );
+
     on<FetchProducts>((event, emit) async {
       print('the length of productlist is ');
       emit(ProductLoading());
@@ -86,6 +90,35 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       } catch (e) {
         print('Error deleting product: $e');
         emit(ProductError());
+      }
+    });
+
+    on<UploadImagesEvent>((event, emit) async {
+      emit(ImageUploadLoading());
+      print('upload image event is caled');
+      try {
+        final token = await getToken();
+        final url =
+            Uri.parse('http://10.0.2.2:8080/admin/inventories/uploadimages');
+        final multipartRequest = MultipartRequest('POST', url);
+        multipartRequest.fields['inventory_id'] = event.inventoryId.toString();
+        for (final image in event.images) {
+          final bytes = await image.readAsBytes();
+          final multipartFile =
+              MultipartFile.fromBytes('image', bytes, filename: image.name);
+          multipartRequest.files.add(multipartFile);
+        }
+        multipartRequest.headers['Authorization'] = token!;
+        final response = await httpClient.send(multipartRequest);
+        if (response.statusCode == 200) {
+          print('upload image is succesful');
+          emit(ImageUploadSuccess(message: 'Image sucessfully added'));
+        } else {
+          emit(ImageUploadFailure(error: 'Could not add images'));
+          print('upload image is not succesful');
+        }
+      } catch (e) {
+        emit(ImageUploadFailure(error: 'Could not add images'));
       }
     });
   }

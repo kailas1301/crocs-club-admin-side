@@ -3,14 +3,14 @@ class User {
   final String name;
   final String email;
   final String phone;
-  final bool blockStatus;
+  final bool blocked;
 
   User({
     required this.id,
     required this.name,
     required this.email,
     required this.phone,
-    required this.blockStatus,
+    required this.blocked,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -19,7 +19,7 @@ class User {
       name: json['name'],
       email: json['email'],
       phone: json['phone'],
-      blockStatus: json['block_status'],
+      blocked: json['blocked'],
     );
   }
 }

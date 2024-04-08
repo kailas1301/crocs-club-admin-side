@@ -55,19 +55,18 @@ class UsersScreen extends StatelessWidget {
                     subtitle: Text(user.email),
                     trailing: ElevatedButton(
                       onPressed: () {
-                        print('the user blocstatus is ${user.blockStatus}');
-                        if (user.blockStatus == true) {
+                        print('the user blocstatus is ${user.blocked}');
+                        if (user.blocked == true) {
                           BlocProvider.of<UsersBloc>(context)
                               .add(UnblockUser(user.id));
                           BlocProvider.of<UsersBloc>(context).add(FetchUsers());
-                        } else if (user.blockStatus == false) {
+                        } else if (user.blocked == false) {
                           BlocProvider.of<UsersBloc>(context)
                               .add(BlockUser(user.id));
                           BlocProvider.of<UsersBloc>(context).add(FetchUsers());
                         }
                       },
-                      child:
-                          Text(user.blockStatus == true ? 'unlock' : 'block'),
+                      child: Text(user.blocked == true ? 'unlock' : 'block'),
                     ),
                   ),
                 );
@@ -77,7 +76,7 @@ class UsersScreen extends StatelessWidget {
             );
           } else if (state is UsersError) {
             return const Center(
-              child: Text('data was not found'),
+              child: Text('No User Found'),
             );
           } else {
             return const Center(

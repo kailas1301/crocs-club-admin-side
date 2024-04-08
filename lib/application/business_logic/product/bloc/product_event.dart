@@ -25,3 +25,13 @@ class DeleteProductEvent extends ProductEvent {
 
   DeleteProductEvent({required this.productId});
 }
+
+class UploadImagesEvent extends ProductEvent {
+  final int inventoryId;
+  final List<XFile> images;
+
+  UploadImagesEvent({
+    required this.inventoryId,
+    required this.images,
+  });
+}

@@ -1,6 +1,7 @@
 import 'package:crocsclub_admin/application/business_logic/Splash/bloc/splash_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/category/bloc/category_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/login/bloc/login_bloc_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/multiple_image/bloc/multiple_image_picking_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/nav_bar/bloc/navbar_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/users/bloc/users_bloc.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CategoryBloc()),
         BlocProvider(create: (_) => UsersBloc()),
         BlocProvider(create: (_) => ProductBloc()),
+        BlocProvider(create: (_) => MultipleImagePickingBloc()),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

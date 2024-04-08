@@ -1,5 +1,6 @@
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
 import 'package:crocsclub_admin/application/presentation/admin_home_screen/widgets/product_card_widget.dart';
+import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/drawer.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
@@ -24,7 +25,7 @@ class AdminHome extends StatelessWidget {
             )
           ],
           title: const AppBarTextWidget(
-            title: 'CROCS CLUB',
+            title: 'Crocs Club',
           ),
           elevation: 0,
           centerTitle: true,
@@ -53,11 +54,14 @@ class AdminHome extends StatelessWidget {
             );
           } else if (state is ProductError) {
             return const Center(
-              child: SubHeadingTextWidget(title: 'No products available'),
+              child: SubHeadingTextWidget(
+                title: 'No products available',
+                textColor: kDarkGreyColour,
+              ),
             );
           } else {
             return const Center(
-              child: SubHeadingTextWidget(title: 'No products available'),
+              child: CircularProgressIndicator(),
             );
           }
         },

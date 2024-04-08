@@ -3,7 +3,7 @@ import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 import 'package:dio/dio.dart';
 
 class ProductService {
-  final Dio dio = Dio(); // Create a single instance for efficiency
+  final Dio dio = Dio();
 
   Future<Response<dynamic>> addProduct(Product product) async {
     final dio = Dio();
@@ -94,3 +94,27 @@ class ProductService {
     }
   }
 }
+
+//   Future<List<String>> uploadImage(List<AssetEntity> selectedAssets) async {
+//     File? image;
+//     List<String> imagePath = [];
+//     final url =
+//         Uri.parse('http://10.0.2.2:8080/admin/inventories/uploadimages');
+//     for (int i = 0; i < selectedAssets.length; i++) {
+//       image = await selectedAssets[i].file;
+//       final request = http.MultipartRequest('POST', url)
+//         ..fields['upload_preset'] = 'dyfsmyk5'
+//         ..files.add(await http.MultipartFile.fromPath('file', image!.path));
+//       final response = await request.send();
+//       if (response.statusCode == 200) {
+//         final responseData = await response.stream.toBytes();
+//         final responseString = String.fromCharCodes(responseData);
+//         final jsonMap = jsonDecode(responseString);
+//         final url = jsonMap['url'];
+//         imagePath.add(url);
+//       }
+//     }
+//     return imagePath;
+//   }
+// }
+

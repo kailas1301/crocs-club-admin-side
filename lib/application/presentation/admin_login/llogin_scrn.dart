@@ -60,8 +60,9 @@ class LoginScreen extends StatelessWidget {
 
                   // Email text field
                   TextFormFieldWidget(
+                    labelText: 'E-mail',
                     controller: emailController,
-                    hintText: 'E-mail',
+                    hintText: 'Enter Your E-mail',
                     prefixIcon: Icons.email,
                     validatorFunction: (value) {
                       if (value == null || value.isEmpty) {
@@ -82,9 +83,10 @@ class LoginScreen extends StatelessWidget {
 
                   // Password text field
                   TextFormFieldWidget(
+                    labelText: 'Password',
                     prefixIcon: Icons.password,
                     controller: passwordController,
-                    hintText: 'Password',
+                    hintText: 'Enter Your Password',
                     validatorFunction: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Password is required';

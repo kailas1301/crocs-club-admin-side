@@ -1,3 +1,4 @@
+import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:crocsclub_admin/application/business_logic/category/bloc/category_bloc.dart';
 import 'package:crocsclub_admin/application/presentation/admin_login/llogin_scrn.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
@@ -29,7 +30,10 @@ Future<void> adminlogout(BuildContext context) async {
       return Padding(
         padding: const EdgeInsets.all(20.0),
         child: AlertDialog(
-          content: const Text('Are you sure you want to log out?'),
+          content: const SubHeadingTextWidget(
+            title: 'Do you want to log out?',
+            textColor: kDarkGreyColour,
+          ),
           actions: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

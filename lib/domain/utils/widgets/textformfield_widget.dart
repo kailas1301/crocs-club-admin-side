@@ -1,5 +1,6 @@
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget({
@@ -13,6 +14,7 @@ class TextFormFieldWidget extends StatelessWidget {
     this.validatorFunction,
     this.keyboardType,
     this.maxLength,
+    this.labelText,
   });
 
   final TextEditingController controller;
@@ -24,6 +26,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final Function(String?)? validatorFunction;
   final TextInputType? keyboardType;
   final int? maxLength;
+  final String? labelText;
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +48,12 @@ class TextFormFieldWidget extends StatelessWidget {
         obscureText: obscureText ?? false,
         controller: controller,
         decoration: InputDecoration(
+          hintFadeDuration: const Duration(seconds: 1),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          floatingLabelStyle: GoogleFonts.openSans(
+              fontSize: 18, fontWeight: FontWeight.w500, color: kblackColour),
+          floatingLabelAlignment: FloatingLabelAlignment.start,
+          labelText: labelText, alignLabelWithHint: true,
           suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
           fillColor: kGreyColour,
           hintText: hintText,
