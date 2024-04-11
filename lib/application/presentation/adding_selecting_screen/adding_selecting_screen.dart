@@ -42,8 +42,10 @@ void showSelectionDialog(
                 buttonText: 'Add Coupon',
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddCouponForm(id: id,)));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AddCouponForm(
+                            id: id,
+                          )));
                 },
               ),
               kSizedBoxH10,
@@ -52,8 +54,10 @@ void showSelectionDialog(
                 buttonText: 'Add Offer',
                 onPressed: () {
                   Navigator.pop(context);
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => AddOfferForm()));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AddOfferForm(
+                            id: id,
+                          )));
                 },
               ),
             ],

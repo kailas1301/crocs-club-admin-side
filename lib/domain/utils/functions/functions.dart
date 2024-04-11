@@ -1,3 +1,4 @@
+import 'package:crocsclub_admin/domain/utils/widgets/dialougue_text.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:crocsclub_admin/application/business_logic/category/bloc/category_bloc.dart';
 import 'package:crocsclub_admin/application/presentation/admin_login/llogin_scrn.dart';
@@ -130,22 +131,6 @@ void confirmDelete({
       );
     },
   );
-}
-
-class DialougueText extends StatelessWidget {
-  const DialougueText({
-    super.key,
-    required this.text,
-  });
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: GoogleFonts.poppins(
-          fontSize: 16, fontWeight: FontWeight.w600, color: kDarkGreyColour),
-    );
-  }
 }
 
 // to show the edit dialougue boc to edit the category

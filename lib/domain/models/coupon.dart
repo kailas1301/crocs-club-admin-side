@@ -1,13 +1,13 @@
 // Model class for a coupon
 class Coupon {
-  final int id;
+  final int ?id;
   final String name;
   final int discountPercentage;
   final bool isAvailable;
   final int minimumPrice;
 
   Coupon({
-    required this.id,
+     this.id,
     required this.name,
     required this.discountPercentage,
     required this.isAvailable,

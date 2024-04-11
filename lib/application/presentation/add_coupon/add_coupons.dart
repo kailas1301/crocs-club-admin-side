@@ -99,7 +99,6 @@ class AddCouponForm extends StatelessWidget {
                     if (formKey.currentState!.validate()) {
                       // Create a Coupon object from the form data
                       Coupon coupon = Coupon(
-                        id: id,
                         isAvailable: true,
                         name: nameController.text,
                         discountPercentage:

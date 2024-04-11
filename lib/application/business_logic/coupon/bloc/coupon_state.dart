@@ -40,3 +40,9 @@ class CouponError extends CouponState {
 
   CouponError(this.error);
 }
+
+class CouponUpdateError extends CouponState {
+  final String error;
+
+  CouponUpdateError(this.error);
+}

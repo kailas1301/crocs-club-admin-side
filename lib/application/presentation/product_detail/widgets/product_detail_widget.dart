@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
 import 'package:crocsclub_admin/application/presentation/product_detail/product_detail.dart';
 import 'package:crocsclub_admin/application/presentation/product_detail/widgets/add_images.dart';
@@ -22,12 +23,11 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
           SizedBox(
             height: MediaQuery.of(context).size.height / 3,
             width: double.infinity,
-            child: PageView.builder(
+            child: CarouselSlider.builder(
               itemCount: product.image.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (context, index, realIndex) {
                 return ClipRRect(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(12)),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
                   child: CachedNetworkImage(
                     height: screenHeight * .5,
                     imageUrl: product.image[index],
@@ -41,16 +41,23 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
                     ),
                     placeholder: (context, url) {
                       return Container(
-                          alignment: Alignment.center,
-                          width: 24,
-                          height: 24,
-                          child: const CircularProgressIndicator.adaptive());
+                        alignment: Alignment.center,
+                        width: 24,
+                        height: 24,
+                        child: const CircularProgressIndicator.adaptive(),
+                      );
                     },
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
                 );
               },
+              options: CarouselOptions(
+                aspectRatio: 16 / 9,
+                autoPlay: true,
+                enlargeCenterPage: true,
+                viewportFraction: 0.9,
+              ),
             ),
           ),
           kSizedBoxH30,

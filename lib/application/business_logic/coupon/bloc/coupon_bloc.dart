@@ -44,10 +44,10 @@ class CouponBloc extends Bloc<CouponEvent, CouponState> {
           emit(CouponUpdated(response));
           emit(CouponsLoaded(coupons));
         } else {
-          emit(CouponError('Failed to update coupon'));
+          emit(CouponUpdateError('Failed to update coupon'));
         }
       } catch (e) {
-        emit(CouponError(e.toString()));
+        emit(CouponUpdateError(e.toString()));
       }
     });
   }

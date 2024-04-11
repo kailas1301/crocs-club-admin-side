@@ -36,7 +36,7 @@ class CouponServices {
         if (errorMessage != null) {
           return errorMessage;
         } else {
-          return 'Cannot edit coupon';
+          return 'Cannot add coupon';
         }
       }
     }

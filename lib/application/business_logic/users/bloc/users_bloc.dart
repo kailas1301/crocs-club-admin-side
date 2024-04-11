@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:crocsclub_admin/domain/models/users.dart';
-import 'package:crocsclub_admin/data/services/users_repo.dart';
+import 'package:crocsclub_admin/data/services/usersrepo.dart';
 import 'package:meta/meta.dart';
 part 'users_event.dart';
 part 'users_state.dart';
