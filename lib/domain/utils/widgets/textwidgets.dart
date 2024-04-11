@@ -25,15 +25,17 @@ class SubHeadingTextWidget extends StatelessWidget {
     super.key,
     required this.title,
     this.textColor,
+    this.textsize,
   });
   final String title;
   final Color? textColor;
+  final double? textsize;
   @override
   Widget build(BuildContext context) {
     return Text(
       title,
       style: GoogleFonts.poppins(
-        fontSize: 16,
+        fontSize: textsize ?? 16,
         fontWeight: FontWeight.w600,
         color: textColor,
       ),

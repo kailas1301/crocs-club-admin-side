@@ -20,26 +20,33 @@ class CategoryListTileWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20.0),
-            boxShadow: const [
-              BoxShadow(color: kGreyColour, spreadRadius: 2),
-            ],
+            color: kAppPrimaryColor,
+            borderRadius: BorderRadius.circular(30.0),
           ),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: ListTile(
-              title: SubHeadingTextWidget(title: category['category']),
+              title: SubHeadingTextWidget(
+                title: category['category'],
+                textColor: kwhiteColour,
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.edit),
+                    icon: const Icon(
+                      Icons.edit,
+                      color: kwhiteColour,
+                    ),
                     onPressed: () {
                       showEditDialog(context, category['category']);
                     },
                   ),
                   IconButton(
-                    icon: const Icon(Icons.delete),
+                    icon: const Icon(
+                      Icons.delete,
+                      color: kwhiteColour,
+                    ),
                     onPressed: () {
                       confirmDelete(
                         onPressed: () => context

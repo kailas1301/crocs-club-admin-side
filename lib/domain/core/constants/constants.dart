@@ -13,3 +13,7 @@ const kGreenColour = Color.fromARGB(255, 24, 189, 90);
 const kAppThemeColour = Color.fromARGB(255, 235, 228, 228);
 const kAppBarColor = Color.fromARGB(255, 93, 92, 92);
 const kDarkGreyColour = Color.fromARGB(255, 108, 107, 107);
+const Color kAppPrimaryColor = Color(0xFF4BE3B5);
+const Color kAppButtonColor = Color(0xFF4BE3B5);
+const Color kAppColorlight = Color.fromARGB(255, 142, 234, 206);
+const Color kPrimaryDarkColor = Color(0xFF0B5532);

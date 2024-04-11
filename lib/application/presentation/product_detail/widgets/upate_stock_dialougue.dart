@@ -1,8 +1,8 @@
-
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/models/product.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textformfield_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:flutter/material.dart';
@@ -26,9 +26,13 @@ class UpdateStockWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          SubHeadingTextWidget(title: 'Old Stock: ${product.stock}'),
+          SubHeadingTextWidget(
+            title: 'Old Stock: ${product.stock}',
+            textColor: kDarkGreyColour,
+          ),
           kSizedBoxH10,
           TextFormFieldWidget(
+            labelText: 'Stock',
             controller: stockController,
             keyboardType: TextInputType.number,
             hintText: 'New Stock',
@@ -44,7 +48,9 @@ class UpdateStockWidget extends StatelessWidget {
         ],
       ),
       actions: [
-        ElevatedButton(
+        ElevatedButtonWidget(
+          textsize: 12,
+          buttonText: 'Update',
           onPressed: () {
             if (int.parse(stockController.text) >= 0 &&
                 stockController.text.isNotEmpty) {
@@ -59,13 +65,12 @@ class UpdateStockWidget extends StatelessWidget {
               Navigator.of(context).pop();
             }
           },
-          child: const Text('Update'),
         ),
-        ElevatedButton(
+        ElevatedButtonWidget(
+          buttonText: 'Cancel',
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog
           },
-          child: const Text('Cancel'),
         ),
       ],
     );

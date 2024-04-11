@@ -15,47 +15,48 @@ void showSelectionDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const SubHeadingTextWidget(title: 'Select what to add'),
-        content: Container(
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButtonWidget(
-                    width: 280,
-                    buttonText: 'Add Product',
-                    onPressed: () {
-                      Navigator.pop(context);
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddInventoryItemScreen(
-                          id: id,
-                          categoryName: categoryName,
-                        ),
-                      ));
-                    }),
-                kSizedBoxH10,
-                ElevatedButtonWidget(
-                  width: 280,
-                  buttonText: 'Add Coupon',
+        title: const SubHeadingTextWidget(
+          title: 'Select what to add',
+          textColor: kDarkGreyColour,
+        ),
+        content: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButtonWidget(
+                  width: 350,
+                  buttonText: 'Add Product',
                   onPressed: () {
                     Navigator.pop(context);
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddCouponForm()));
-                  },
-                ),
-                kSizedBoxH10,
-                ElevatedButtonWidget(
-                  width: 280,
-                  buttonText: 'Add Offer',
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddOfferForm()));
-                  },
-                ),
-              ],
-            ),
+                      builder: (context) => AddInventoryItemScreen(
+                        id: id,
+                        categoryName: categoryName,
+                      ),
+                    ));
+                  }),
+              kSizedBoxH10,
+              ElevatedButtonWidget(
+                width: 280,
+                buttonText: 'Add Coupon',
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddCouponForm(id: id,)));
+                },
+              ),
+              kSizedBoxH10,
+              ElevatedButtonWidget(
+                width: 280,
+                buttonText: 'Add Offer',
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddOfferForm()));
+                },
+              ),
+            ],
           ),
         ),
       );

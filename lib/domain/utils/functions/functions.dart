@@ -6,6 +6,7 @@ import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart'
 import 'package:crocsclub_admin/domain/utils/widgets/textformfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // to save the auth token while admin log in
@@ -101,25 +102,50 @@ void confirmDelete({
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Confirm Delete'),
-        content:
-            Text('Are you sure you want to delete the category $categoryName?'),
+        alignment: Alignment.center,
+        title: Text(
+          'Confirm Delete',
+          style: GoogleFonts.poppins(
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              color: kDarkGreyColour),
+        ),
+        content: DialougueText(
+          text: 'Are you sure you want to delete the category $categoryName?',
+        ),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
+          ElevatedButtonWidget(
+            buttonText: 'Delete',
             onPressed: () {
               onPressed();
               Navigator.pop(context);
             },
-            child: const Text('Delete'),
+          ),
+          kSizedBoxW10,
+          ElevatedButtonWidget(
+            buttonText: 'Cancel',
+            onPressed: () => Navigator.pop(context),
           ),
         ],
       );
     },
   );
+}
+
+class DialougueText extends StatelessWidget {
+  const DialougueText({
+    super.key,
+    required this.text,
+  });
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: GoogleFonts.poppins(
+          fontSize: 16, fontWeight: FontWeight.w600, color: kDarkGreyColour),
+    );
+  }
 }
 
 // to show the edit dialougue boc to edit the category
@@ -130,13 +156,14 @@ void showEditDialog(BuildContext context, String categoryName) {
     builder: (BuildContext context) {
       return Dialog(
         child: Container(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(25.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormFieldWidget(
+                labelText: 'Category Name',
                 controller: editController,
-                hintText: 'Category Name',
+                hintText: 'Enter the Category Name',
                 validatorFunction: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Enter a valid category name';
@@ -148,11 +175,8 @@ void showEditDialog(BuildContext context, String categoryName) {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('Cancel'),
-                  ),
-                  ElevatedButton(
+                  ElevatedButtonWidget(
+                    buttonText: 'Update',
                     onPressed: () {
                       if (editController.text.isNotEmpty &&
                           editController.text != categoryName) {
@@ -164,7 +188,10 @@ void showEditDialog(BuildContext context, String categoryName) {
                         Navigator.pop(context);
                       }
                     },
-                    child: const Text('Edit'),
+                  ),
+                  ElevatedButtonWidget(
+                    buttonText: 'Cancel',
+                    onPressed: () => Navigator.pop(context),
                   ),
                 ],
               ),

@@ -5,6 +5,7 @@ import 'package:crocsclub_admin/application/presentation/product_detail/widgets/
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/models/product.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/icontext_button_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:crocsclub_admin/main.dart';
@@ -71,21 +72,20 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  HeadingTextWidget(
+                    title: product.productName.toUpperCase(),
+                  ),
+                  kSizedBoxH10,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      HeadingTextWidget(
-                        title: product.productName.toUpperCase(),
+                      SubHeadingTextWidget(
+                        textColor: kDarkGreyColour,
+                        title: 'Size: ${product.size}',
                       ),
-                      IconTextButtonWidget(
-                        textwidget: const CustomTextWidget(
-                          fontsize: 11,
-                          title: 'Add Images',
-                          textColor: kwhiteColour,
-                        ),
-                        color: kAppBarColor,
-                        height: .07,
-                        width: .4,
+                      ElevatedButtonWidget(
+                        width: screenWidth * .4,
+                        textsize: 11,
                         buttonText: 'Add images',
                         onPressed: () {
                           Navigator.of(context).push(MaterialPageRoute(
@@ -94,16 +94,9 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
                             ),
                           ));
                         },
-                        icon: Icons.photo_library_outlined,
                       ),
                     ],
                   ),
-                  kSizedBoxH10,
-                  SubHeadingTextWidget(
-                    textColor: kDarkGreyColour,
-                    title: 'Size: ${product.size}',
-                  ),
-                  kSizedBoxH10,
                   SubHeadingTextWidget(
                     textColor: kGreenColour,
                     title: 'Price: ₹${product.price.floor().toString()}',
@@ -119,7 +112,7 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
                       title: 'Update Stock',
                       textColor: kwhiteColour,
                     ),
-                    color: kblackColour,
+                    color: kAppPrimaryColor,
                     height: .08,
                     width: .6,
                     buttonText: 'Update Stock',
@@ -134,7 +127,7 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
                       title: 'Delete Product',
                       textColor: kwhiteColour,
                     ),
-                    color: kblackColour,
+                    color: kAppPrimaryColor,
                     height: .08,
                     width: .6,
                     buttonText: 'Delete Product',

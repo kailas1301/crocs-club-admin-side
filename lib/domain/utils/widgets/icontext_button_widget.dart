@@ -24,39 +24,31 @@ class IconTextButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onPressed,
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(25),
-            boxShadow: [
-              BoxShadow(
-                color:
-                    const Color.fromARGB(255, 203, 202, 202).withOpacity(0.5),
-                spreadRadius: 2,
-                blurRadius: 2,
-                offset: const Offset(2, 2),
-              ),
-            ],
-          ),
-          height: screenHeight * height,
-          width: screenWidth * width,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                textwidget,
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      icon,
-                      color: kwhiteColour,
-                    ))
-              ],
+      child: Container(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: const Color.fromARGB(255, 203, 202, 202).withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 2,
+              offset: const Offset(2, 2),
             ),
-          ),
+          ],
+        ),
+        height: screenHeight * height,
+        width: screenWidth * width,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            textwidget,
+            Icon(
+              icon,
+              color: kwhiteColour,
+            )
+          ],
         ),
       ),
     );

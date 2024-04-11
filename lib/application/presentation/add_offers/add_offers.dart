@@ -21,7 +21,8 @@ class AddOfferForm extends StatelessWidget {
           child: Column(
             children: [
               TextFormFieldWidget(
-                hintText: 'Offer Name',
+                labelText: 'Offer Name',
+                hintText: 'Enter the Offer Name',
                 validatorFunction: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Enter a valid offer name';
@@ -32,7 +33,8 @@ class AddOfferForm extends StatelessWidget {
               ),
               kSizedBoxH10,
               TextFormFieldWidget(
-                hintText: 'Discount percentage',
+                labelText: 'Discount %',
+                hintText: 'Enter the percentage of Dicount',
                 controller: percentageController,
                 keyboardType: TextInputType.number,
                 validatorFunction: (value) {

@@ -32,43 +32,54 @@ class BottomNavBar extends StatelessWidget {
 
           return Scaffold(
             body: currentScreen, // Set body based on state
-            bottomNavigationBar: GNav(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              gap: 8,
-              activeColor: kwhiteColour,
-              iconSize: 24,
-              tabBackgroundColor: kAppBarColor,
-              duration: const Duration(milliseconds: 250),
-              tabs: [
-                GButton(
-                  icon: Icons.home,
-                  text: 'Home',
-                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
-                  onPressed: () =>
-                      context.read<NavbarBloc>().add(HomePressed()),
-                ),
-                GButton(
-                  icon: Icons.add,
-                  text: 'Add Product',
-                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
-                  onPressed: () =>
-                      context.read<NavbarBloc>().add(AddProductPressed()),
-                ),
-                GButton(
-                  icon: Icons.local_offer,
-                  text: 'Add deals',
-                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
-                  onPressed: () =>
-                      context.read<NavbarBloc>().add(OffersCouponsPressed()),
-                ),
-                GButton(
-                  icon: Icons.people,
-                  text: 'Users',
-                  textStyle: const TextStyle(fontSize: 16, color: kwhiteColour),
-                  onPressed: () =>
-                      context.read<NavbarBloc>().add(UserPressed()),
-                ),
-              ],
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GNav(
+                color: kDarkGreyColour,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                gap: 6,
+                activeColor: kwhiteColour,
+                iconSize: 20,
+                textSize: 9,
+                tabBackgroundColor: kAppPrimaryColor,
+                curve: Curves.easeIn,
+                duration: const Duration(milliseconds: 250),
+                tabs: [
+                  GButton(
+                    icon: Icons.home,
+                    text: 'Home',
+                    textStyle:
+                        const TextStyle(fontSize: 15, color: kwhiteColour),
+                    onPressed: () =>
+                        context.read<NavbarBloc>().add(HomePressed()),
+                  ),
+                  GButton(
+                    icon: Icons.new_label,
+                    text: 'Add Product',
+                    textStyle:
+                        const TextStyle(fontSize: 16, color: kwhiteColour),
+                    onPressed: () =>
+                        context.read<NavbarBloc>().add(AddProductPressed()),
+                  ),
+                  GButton(
+                    icon: Icons.local_offer,
+                    text: 'Add deals',
+                    textStyle:
+                        const TextStyle(fontSize: 16, color: kwhiteColour),
+                    onPressed: () =>
+                        context.read<NavbarBloc>().add(OffersCouponsPressed()),
+                  ),
+                  GButton(
+                    icon: Icons.people,
+                    text: 'Users',
+                    textStyle:
+                        const TextStyle(fontSize: 16, color: kwhiteColour),
+                    onPressed: () =>
+                        context.read<NavbarBloc>().add(UserPressed()),
+                  ),
+                ],
+              ),
             ),
           );
         },

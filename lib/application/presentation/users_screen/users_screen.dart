@@ -1,6 +1,8 @@
 import 'package:crocsclub_admin/application/business_logic/users/bloc/users_bloc.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,9 +53,14 @@ class UsersScreen extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListTile(
-                    title: Text(user.name),
-                    subtitle: Text(user.email),
-                    trailing: ElevatedButton(
+                    title: SubHeadingTextWidget(title: user.name),
+                    subtitle: SubHeadingTextWidget(
+                      title: user.email,
+                      textColor: kDarkGreyColour,
+                    ),
+                    trailing: ElevatedButtonWidget(
+                      textsize: 12,
+                      buttonText: user.blocked == true ? 'unlock' : 'block',
                       onPressed: () {
                         print('the user blocstatus is ${user.blocked}');
                         if (user.blocked == true) {
@@ -66,7 +73,6 @@ class UsersScreen extends StatelessWidget {
                           BlocProvider.of<UsersBloc>(context).add(FetchUsers());
                         }
                       },
-                      child: Text(user.blocked == true ? 'unlock' : 'block'),
                     ),
                   ),
                 );

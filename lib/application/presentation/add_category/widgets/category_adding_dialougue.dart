@@ -20,8 +20,9 @@ class AddCategoryDialougueWidget extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               TextFormFieldWidget(
+                labelText: 'Name',
                 controller: nameController,
-                hintText: 'Category Name',
+                hintText: 'Enter the Name of Category',
                 validatorFunction: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Enter a valid category name';

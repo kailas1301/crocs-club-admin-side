@@ -24,6 +24,7 @@ class AddInventoryItemScreen extends StatelessWidget {
     'M6',
     'M7',
     'M8',
+    'M9',
     'M10',
     'K1',
     'K2',
@@ -37,7 +38,6 @@ class AddInventoryItemScreen extends StatelessWidget {
 
   AddInventoryItemScreen(
       {super.key, required this.categoryName, required this.id});
-
   final String categoryName;
   final int id;
 
@@ -89,10 +89,10 @@ class AddInventoryItemScreen extends StatelessWidget {
                       width: double.infinity,
                       height: screenHeight * .3,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(25.0),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color.fromARGB(255, 184, 184, 184)
+                            color: Color.fromARGB(255, 187, 184, 184)
                                 .withOpacity(0.5),
                             spreadRadius: 2,
                             blurRadius: 1,
@@ -114,7 +114,7 @@ class AddInventoryItemScreen extends StatelessWidget {
                   kSizedBoxH20,
                   Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
+                      borderRadius: BorderRadius.circular(20.0),
                       boxShadow: [
                         BoxShadow(
                           color: const Color.fromARGB(255, 184, 184, 184)
@@ -130,7 +130,13 @@ class AddInventoryItemScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: DropdownButtonFormField<String>(
                         value: selectedSize,
-                        hint: const Text('Select Size'),
+                        decoration: const InputDecoration(
+                          labelText: 'Size',
+                          hintText: 'Select Size',
+                          border: InputBorder.none,
+                          contentPadding:
+                              EdgeInsets.symmetric(horizontal: 15.0),
+                        ),
                         items: sizes.map((size) {
                           return DropdownMenuItem<String>(
                             value: size,
@@ -157,7 +163,8 @@ class AddInventoryItemScreen extends StatelessWidget {
                       }
                       return null; // Valid
                     },
-                    hintText: 'Product Name',
+                    hintText: 'Enter Name of the product',
+                    labelText: 'Name',
                     controller: nameController,
                   ),
                   kSizedBoxH10,
@@ -169,7 +176,8 @@ class AddInventoryItemScreen extends StatelessWidget {
                       }
                       return null; // Valid
                     },
-                    hintText: 'Product Stock',
+                    labelText: 'Stock',
+                    hintText: 'Enter the no of Stock',
                     controller: stockController,
                   ),
                   kSizedBoxH10,
@@ -181,7 +189,8 @@ class AddInventoryItemScreen extends StatelessWidget {
                       }
                       return null; // Valid
                     },
-                    hintText: 'Product Price',
+                    labelText: 'Price',
+                    hintText: 'Enter the Price',
                     controller: priceController,
                   ),
                   kSizedBoxH20,
