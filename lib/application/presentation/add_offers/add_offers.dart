@@ -12,8 +12,9 @@ class AddOfferForm extends StatelessWidget {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController percentageController = TextEditingController();
-  AddOfferForm({super.key, required this.id});
+  AddOfferForm({super.key, required this.id, required this.offerType});
   final int id;
+  final String offerType;
   @override
   Widget build(BuildContext context) {
     return BlocListener<OfferBloc, OfferState>(

@@ -8,17 +8,18 @@ import 'package:crocsclub_admin/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OffersScreen extends StatelessWidget {
-  const OffersScreen({super.key});
+class CategoryOffersScreen extends StatelessWidget {
+  const CategoryOffersScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OfferBloc, OfferState>(
       listener: (context, state) {
-        if (state is OfferDeleted) {
+        if (state is OfferDeletedState) {
           showCustomSnackbar(context, 'Offer was successfully deleted',
               kGreenColour, kDarkGreyColour);
-        } else if (state is OfferDeletedError) {
+        }
+        if (state is OfferDeletedError) {
           showCustomSnackbar(
               context, 'Offer was not deleted', kRedColour, kwhiteColour);
         }
@@ -39,17 +40,19 @@ class OffersScreen extends StatelessWidget {
             child: Text('no offer found'),
           );
         } else {
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: Text('no offer found'),
+          );
         }
       },
     );
   }
 }
 
-class OfferItem extends StatelessWidget {
+class CategoryOfferItem extends StatelessWidget {
   final CategoryOffer offer;
 
-  const OfferItem({super.key, required this.offer});
+  const CategoryOfferItem({super.key, required this.offer});
 
   @override
   Widget build(BuildContext context) {

@@ -56,6 +56,7 @@ void showSelectionDialog(
                   Navigator.pop(context);
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => AddOfferForm(
+                            offerType: 'category',
                             id: id,
                           )));
                 },

@@ -65,6 +65,11 @@ class AddInventoryItemScreen extends StatelessWidget {
                 backgroundColor: kGreenColour,
               ),
             );
+            nameController.clear();
+            stockController.clear();
+            priceController.clear();
+            selectedSize = sizes[0];
+            image = null;
           } else if (state is ProductError) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

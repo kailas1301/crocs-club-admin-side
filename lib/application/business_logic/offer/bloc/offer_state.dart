@@ -21,10 +21,10 @@ class OffersLoaded extends OfferState {
   OffersLoaded(this.offers);
 }
 
-class OfferDeleted extends OfferState {
+class OfferDeletedState extends OfferState {
   final String message;
 
-  OfferDeleted(this.message);
+  OfferDeletedState(this.message);
 }
 
 class OfferDeletedError extends OfferState {

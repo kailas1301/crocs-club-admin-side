@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:crocsclub_admin/application/business_logic/multiple_image/bloc/multiple_image_picking_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
+import 'package:crocsclub_admin/domain/core/constants/constants.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +15,13 @@ class AddImagesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              BlocProvider.of<MultipleImagePickingBloc>(context)
+                  .add(PickImagesExited());
+            },
+            icon: const Icon(Icons.arrow_back)),
         centerTitle: true,
         title: const AppBarTextWidget(title: 'Add Images'),
       ),
@@ -31,26 +40,33 @@ class AddImagesScreen extends StatelessWidget {
                       crossAxisCount: 3,
                     ),
                     itemBuilder: (context, index) {
-                      return Image.file(File(state.fileImages[index].path));
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.file(File(state.fileImages[index].path)),
+                      );
                     },
                   ),
                 ),
-                ElevatedButton(
+                ElevatedButtonWidget(
+                  buttonText: 'Upload Image',
                   onPressed: () {
-                    print('upload image is called');
                     BlocProvider.of<ProductBloc>(context).add(UploadImagesEvent(
                         inventoryId: inventoryId, images: state.fileImages));
-                    print('upload image for bloc is called');
+                    BlocProvider.of<MultipleImagePickingBloc>(context)
+                        .add(PickImagesExited());
                     Navigator.of(context).pop();
                   },
-                  child: const Text('Upload'),
                 ),
               ],
             );
           }
 
           if (state is NoImagePicked) {
-            return const Center(child: Text('No images were picked'));
+            return const Center(
+                child: SubHeadingTextWidget(
+              title: 'No images were picked',
+              textColor: kDarkGreyColour,
+            ));
           } else {
             return const Center(child: CircularProgressIndicator());
           }

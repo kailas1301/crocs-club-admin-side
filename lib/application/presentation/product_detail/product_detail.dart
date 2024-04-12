@@ -11,7 +11,6 @@ import 'package:crocsclub_admin/domain/models/product.dart';
 
 class ProductDetail extends StatelessWidget {
   const ProductDetail({super.key, required this.product});
-
   final ProductFromApi product;
 
   @override

@@ -36,16 +36,11 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
     });
 
     on<ExpireOfferEvent>((event, emit) async {
-      print('expire offer event called');
       emit(OfferLoading());
       try {
         final response = await offerServices.deleteCategoryOffer(event.offerId);
         if (response == 'success') {
-          print('expire offer event called');
-          emit(OfferDeleted('Offer was succesffully deleted'));
-          print('offerdeleted');
-          final offerList = await offerServices.getAllCategoryOffers();
-          emit(OffersLoaded(offerList));
+          emit(OfferDeletedState('Offer was succesffully deleted'));
         } else {
           emit(OfferDeletedError('Failed to delete offer'));
         }
