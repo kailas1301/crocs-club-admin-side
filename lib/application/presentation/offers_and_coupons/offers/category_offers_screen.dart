@@ -32,7 +32,7 @@ class CategoryOffersScreen extends StatelessWidget {
             separatorBuilder: (context, index) => kSizedBoxH10,
             itemCount: state.offers.length,
             itemBuilder: (context, index) {
-              return OfferItem(offer: state.offers[index]);
+              // return OfferItem(offer: state.offers[index]);
             },
           );
         } else if (state is OfferError) {
