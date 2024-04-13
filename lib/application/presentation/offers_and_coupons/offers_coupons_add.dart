@@ -1,10 +1,10 @@
 import 'package:crocsclub_admin/application/business_logic/coupon/bloc/coupon_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/offer/bloc/offer_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/product_offer/bloc/product_offer_bloc.dart';
 import 'package:crocsclub_admin/application/presentation/offers_and_coupons/coupon/coupons_screen.dart';
 import 'package:crocsclub_admin/application/presentation/offers_and_coupons/offers/category_offers_screen.dart';
 import 'package:crocsclub_admin/application/presentation/offers_and_coupons/offers/product_offers.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
-import 'package:crocsclub_admin/domain/models/category_offer.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +16,7 @@ class OffersAndCouponsAddingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<CouponBloc>(context).add(FetchCoupons());
     BlocProvider.of<OfferBloc>(context).add(GetOffersEvent());
+    BlocProvider.of<ProductOfferBloc>(context).add(GetProductOffersEvent());
     return DefaultTabController(
       length: 3,
       child: Scaffold(

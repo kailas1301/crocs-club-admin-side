@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:crocsclub_admin/domain/models/category_offer.dart';
-import 'package:crocsclub_admin/domain/models/product_offerModel.dart';
+import 'package:crocsclub_admin/domain/models/product_offer.dart';
 import 'package:http/http.dart' as http;
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 
@@ -77,7 +77,7 @@ class OfferServices {
     }
   }
 
-  Future<String> deleteCategoryOffer(int id) async {
+  Future<int> deleteCategoryOffer(int id) async {
     final url = Uri.parse('$baseUrl$expireCategoryOfferEndpoint?id=$id');
     final token = await getToken();
     final response = await http.delete(
@@ -90,21 +90,21 @@ class OfferServices {
 
     if (response.statusCode == 200) {
       print('Successfully made category offer invalid of id $id');
-      return 'success';
+      return response.statusCode;
     } else if (response.statusCode == 400) {
-      print('Invalid request format or fields provided in the wrong format');
-      throw Exception(
-          'Invalid request format or fields provided in the wrong format');
+      return response.statusCode;
     } else if (response.statusCode == 500) {
       print('Failed to expire category offer');
-      throw Exception('Failed to expire category offer');
+      return response.statusCode;
     } else {
       print('Unexpected status code: ${response.statusCode}');
-      throw Exception('Unexpected status code: ${response.statusCode}');
+      return response.statusCode;
     }
   }
 
-  Future<String> addProductOffer(ProductOffer productOffer) async {
+//---------------------------------- product section -----------------------------
+
+  Future<String> addProductOffer(ProductOfferModel productOffer) async {
     print('addCategoryOffer function was called');
 
     final url = Uri.parse('$baseUrl$productOfferEndpoint');
@@ -133,7 +133,7 @@ class OfferServices {
     }
   }
 
-  Future<List<ProductOffer>> getAllProductOffers() async {
+  Future<List<ProductOfferModel>> getAllProductOffers() async {
     final url = Uri.parse('$baseUrl$getProductOfferEndpoint');
     final token = await getToken();
     final response = await http.get(
@@ -147,9 +147,9 @@ class OfferServices {
     if (response.statusCode == 200) {
       final jsonList = json.decode(response.body)['data'];
 
-      final List<ProductOffer> productOfferS = [];
+      final List<ProductOfferModel> productOfferS = [];
       for (var map in jsonList) {
-        final productOffer = ProductOffer.fromJson(map);
+        final productOffer = ProductOfferModel.fromJson(map);
         productOfferS.add(productOffer);
       }
       return productOfferS;
@@ -166,7 +166,7 @@ class OfferServices {
     }
   }
 
-  Future<String> deleteProductOffer(int id) async {
+  Future<int> deleteProductOffer(int id) async {
     final url = Uri.parse('$baseUrl$expireProductOfferEndpoint?id=$id');
     final token = await getToken();
     final response = await http.delete(
@@ -179,17 +179,16 @@ class OfferServices {
 
     if (response.statusCode == 200) {
       print('Successfully made Product offer invalid of id $id');
-      return 'success';
+      return response.statusCode;
     } else if (response.statusCode == 400) {
       print('Invalid request format or fields provided in the wrong format');
-      throw Exception(
-          'Invalid request format or fields provided in the wrong format');
+      return response.statusCode;
     } else if (response.statusCode == 500) {
       print('Failed to expire Product offer');
-      throw Exception('Failed to expire category offer');
+      return response.statusCode;
     } else {
-      print('Unexpected status code: ${response.statusCode}');
-      throw Exception('Unexpected status code: ${response.statusCode}');
+      print('Failed to expire Product offer unexpected error');
+      return response.statusCode;
     }
   }
 }

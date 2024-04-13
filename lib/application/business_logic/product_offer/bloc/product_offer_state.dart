@@ -8,16 +8,16 @@ final class ProductOfferInitial extends ProductOfferState {}
 final class ProductOfferLoading extends ProductOfferState {}
 
 final class ProductOfferLoaded extends ProductOfferState {
-  final List<ProductOffer> offers;
+  final List<ProductOfferModel> offers;
 
   ProductOfferLoaded(this.offers);
 }
 
-final class ProductOfferLoadedError extends ProductOfferState {
-  final String message;
+// final class ProductOfferLoadedError extends ProductOfferState {
+//   final String message;
 
-  ProductOfferLoadedError(this.message);
-}
+//   ProductOfferLoadedError(this.message);
+// }
 
 final class ProductOfferAdded extends ProductOfferState {
   final String message;
@@ -25,11 +25,11 @@ final class ProductOfferAdded extends ProductOfferState {
   ProductOfferAdded(this.message);
 }
 
-final class ProductOfferAddedError extends ProductOfferState {
-  final String message;
+// final class ProductOfferAddedError extends ProductOfferState {
+//   final String message;
 
-  ProductOfferAddedError(this.message);
-}
+//   ProductOfferAddedError(this.message);
+// }
 
 final class ProductOfferDeleted extends ProductOfferState {
   final String message;
@@ -37,8 +37,14 @@ final class ProductOfferDeleted extends ProductOfferState {
   ProductOfferDeleted(this.message);
 }
 
-final class ProductOfferDeletedError extends ProductOfferState {
-  final String message;
+// final class ProductOfferDeletedError extends ProductOfferState {
+//   final String message;
 
-  ProductOfferDeletedError(this.message);
+//   ProductOfferDeletedError(this.message);
+// }
+
+final class ProductOfferError extends ProductOfferState {
+  final String error;
+
+  ProductOfferError(this.error);
 }

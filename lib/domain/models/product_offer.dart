@@ -1,12 +1,12 @@
-class ProductOffer {
+class ProductOfferModel {
   final int? id;
-  final int categoryId;
+  final int productId;
   final int discountPercentage;
   final String offerName;
 
-  ProductOffer({
+  ProductOfferModel({
     this.id,
-    required this.categoryId,
+    required this.productId,
     required this.discountPercentage,
     required this.offerName,
   });
@@ -14,17 +14,17 @@ class ProductOffer {
   // Convert CategoryOffer object to JSON
   Map<String, dynamic> toJson() {
     return {
-      'product_id': categoryId,
+      'product_id': productId,
       'discount_percentage': discountPercentage,
       'offer_name': offerName,
     };
   }
 
   // Create CategoryOffer object from JSON
-  factory ProductOffer.fromJson(Map<String, dynamic> json) {
-    return ProductOffer(
+  factory ProductOfferModel.fromJson(Map<String, dynamic> json) {
+    return ProductOfferModel(
       id: json['id'],
-      categoryId: json['product_id'],
+      productId: json['product_id'],
       discountPercentage: json['discount_percentage'],
       offerName: json['offer_name'],
     );

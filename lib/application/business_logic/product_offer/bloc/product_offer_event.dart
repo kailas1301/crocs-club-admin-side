@@ -4,7 +4,7 @@ part of 'product_offer_bloc.dart';
 sealed class ProductOfferEvent {}
 
 class AddProductOfferEvent extends ProductOfferEvent {
-  final ProductOffer productOffer;
+  final ProductOfferModel productOffer;
 
   AddProductOfferEvent({required this.productOffer});
 }
@@ -12,7 +12,7 @@ class AddProductOfferEvent extends ProductOfferEvent {
 class GetProductOffersEvent extends ProductOfferEvent {}
 
 class ExpireProductOfferEvent extends ProductOfferEvent {
-  final int offerId;
+  final int productofferId;
 
-  ExpireProductOfferEvent({required this.offerId});
+  ExpireProductOfferEvent({required this.productofferId});
 }

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:crocsclub_admin/data/services/offers.dart';
-import 'package:crocsclub_admin/domain/models/product_offerModel.dart';
+import 'package:crocsclub_admin/domain/models/product_offer.dart';
 import 'package:meta/meta.dart';
 
 part 'product_offer_event.dart';
@@ -16,12 +16,12 @@ class ProductOfferBloc extends Bloc<ProductOfferEvent, ProductOfferState> {
         if (result == 'offer added successfully') {
           emit(ProductOfferAdded('Offer succesfully added'));
         } else if (result == 'offer already exists') {
-          emit(ProductOfferAddedError('offer already exists'));
+          emit(ProductOfferError('offer already exists'));
         } else {
-          emit(ProductOfferAddedError('Failed to add offer:'));
+          emit(ProductOfferError('Failed to add offer:'));
         }
       } catch (e) {
-        emit(ProductOfferAddedError('Failed to add offer:'));
+        emit(ProductOfferError('Failed to add offer:'));
       }
     });
 
@@ -31,21 +31,24 @@ class ProductOfferBloc extends Bloc<ProductOfferEvent, ProductOfferState> {
         final offerList = await offerServices.getAllProductOffers();
         emit(ProductOfferLoaded(offerList));
       } catch (e) {
-        emit(ProductOfferLoadedError('Failed to retrieve offers'));
+        emit(ProductOfferError('Failed to retrieve offers'));
       }
     });
 
     on<ExpireProductOfferEvent>((event, emit) async {
       emit(ProductOfferLoading());
       try {
-        final response = await offerServices.deleteCategoryOffer(event.offerId);
-        if (response == 'success') {
+        final response =
+            await offerServices.deleteProductOffer(event.productofferId);
+        if (response == 200) {
           emit(ProductOfferDeleted('Offer was succesffully deleted'));
+          final offerList = await offerServices.getAllProductOffers();
+          emit(ProductOfferLoaded(offerList));
         } else {
-          emit(ProductOfferDeletedError('Failed to delete offer'));
+          emit(ProductOfferError('Failed to delete offer'));
         }
       } catch (e) {
-        emit(ProductOfferDeletedError('Failed to delete offer'));
+        emit(ProductOfferError('Failed to delete offer'));
       }
     });
   }

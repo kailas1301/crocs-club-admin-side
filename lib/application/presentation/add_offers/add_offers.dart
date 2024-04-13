@@ -1,6 +1,8 @@
 import 'package:crocsclub_admin/application/business_logic/offer/bloc/offer_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/product_offer/bloc/product_offer_bloc.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/models/category_offer.dart';
+import 'package:crocsclub_admin/domain/models/product_offer.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textformfield_widget.dart';
@@ -71,17 +73,27 @@ class AddOfferForm extends StatelessWidget {
                 ElevatedButtonWidget(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      print('Category offer button was pressed');
-                      final offer = CategoryOffer(
-                        offerName: nameController.text,
-                        categoryId: id,
-                        discountPercentage:
-                            int.parse(percentageController.text),
-                      );
-                      BlocProvider.of<OfferBloc>(context)
-                          .add(AddOfferEvent(categoryOffer: offer));
-                      nameController.clear();
-                      percentageController.clear();
+                      if (offerType == 'category') {
+                        print('Category offer button was pressed');
+                        final offer = CategoryOffer(
+                          offerName: nameController.text,
+                          categoryId: id,
+                          discountPercentage:
+                              int.parse(percentageController.text),
+                        );
+                        BlocProvider.of<OfferBloc>(context)
+                            .add(AddOfferEvent(categoryOffer: offer));
+                        nameController.clear();
+                        percentageController.clear();
+                      } else {
+                        final offer = ProductOfferModel(
+                            productId: id,
+                            discountPercentage:
+                                int.parse(percentageController.text),
+                            offerName: nameController.text);
+                        BlocProvider.of<ProductOfferBloc>(context)
+                            .add(AddProductOfferEvent(productOffer: offer));
+                      }
                     }
                   },
                   buttonText: 'Add Coupon',

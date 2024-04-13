@@ -39,13 +39,15 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
       emit(OfferLoading());
       try {
         final response = await offerServices.deleteCategoryOffer(event.offerId);
-        if (response == 'success') {
+        if (response == 200) {
           emit(OfferDeletedState('Offer was succesffully deleted'));
+          final offerList = await offerServices.getAllCategoryOffers();
+          emit(OffersLoaded(offerList));
         } else {
-          emit(OfferDeletedError('Failed to delete offer'));
+          emit(OfferDeletedError('Frailed to delete offer'));
         }
       } catch (e) {
-        emit(OfferDeletedError('Failed to delete offer'));
+        emit(OfferError('Failed to delete offer'));
       }
     });
   }

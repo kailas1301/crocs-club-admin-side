@@ -16,12 +16,12 @@ class CategoryOffersScreen extends StatelessWidget {
     return BlocConsumer<OfferBloc, OfferState>(
       listener: (context, state) {
         if (state is OfferDeletedState) {
-          showCustomSnackbar(context, 'Offer was successfully deleted',
+          showCustomSnackbar(context, 'Category Offer was successfully deleted',
               kGreenColour, kDarkGreyColour);
         }
         if (state is OfferDeletedError) {
-          showCustomSnackbar(
-              context, 'Offer was not deleted', kRedColour, kwhiteColour);
+          showCustomSnackbar(context, 'Ctegory Offer was not deleted',
+              kRedColour, kwhiteColour);
         }
       },
       builder: (context, state) {
@@ -32,16 +32,17 @@ class CategoryOffersScreen extends StatelessWidget {
             separatorBuilder: (context, index) => kSizedBoxH10,
             itemCount: state.offers.length,
             itemBuilder: (context, index) {
-              // return OfferItem(offer: state.offers[index]);
+              return CategoryOfferItem(offer: state.offers[index]);
             },
           );
         } else if (state is OfferError) {
           return const Center(
-            child: Text('no offer found'),
+            child: Text('No offer found'),
           );
         } else {
+          print(state);
           return const Center(
-            child: Text('no offer found'),
+            child: CircularProgressIndicator(),
           );
         }
       },
@@ -100,6 +101,7 @@ class CategoryOfferItem extends StatelessWidget {
                 onPressed: () {
                   BlocProvider.of<OfferBloc>(context)
                       .add(ExpireOfferEvent(offerId: offer.id ?? 0));
+                  BlocProvider.of<OfferBloc>(context).add(GetOffersEvent());
                   Navigator.of(context).pop();
                 },
                 alertText: "Are you sure you want to delete this offer?",
