@@ -15,7 +15,6 @@ import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:crocsclub_admin/application/presentation/product_detail/widgets/add_images.dart';
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
 
-// Step 1: Create a ChangeNotifier class for managing carousel state
 class CarouselIndicatorState extends ChangeNotifier {
   int _currentIndex = 0;
 

@@ -6,6 +6,7 @@ import 'package:crocsclub_admin/application/business_logic/login/bloc/login_bloc
 import 'package:crocsclub_admin/application/business_logic/multiple_image/bloc/multiple_image_picking_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/nav_bar/bloc/navbar_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/offer/bloc/offer_bloc.dart';
+import 'package:crocsclub_admin/application/business_logic/payment/bloc/payment_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/product/bloc/product_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/product_offer/bloc/product_offer_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/users/bloc/users_bloc.dart';
@@ -40,7 +41,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => CouponBloc()),
         BlocProvider(create: (_) => CouponValidToggleBloc()),
         BlocProvider(create: (_) => OfferBloc()),
-        BlocProvider(create: (_) => ProductOfferBloc())
+        BlocProvider(create: (_) => ProductOfferBloc()),
+        BlocProvider(create: (_) => PaymentBloc())
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

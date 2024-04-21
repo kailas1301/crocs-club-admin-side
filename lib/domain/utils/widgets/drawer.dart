@@ -1,4 +1,5 @@
 import 'package:crocsclub_admin/application/presentation/order_screen/order_screen.dart';
+import 'package:crocsclub_admin/application/presentation/payment/payemnt_screen.dart';
 import 'package:crocsclub_admin/application/presentation/sales_screen.dart/sales_screen.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
@@ -53,7 +54,7 @@ class DrawerScreen extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SalesScreen(),
+                builder: (context) => const PaymentScreen(),
               ));
             },
           ),

@@ -1,4 +1,3 @@
-import 'package:crocsclub_admin/application/business_logic/offer/bloc/offer_bloc.dart';
 import 'package:crocsclub_admin/application/business_logic/product_offer/bloc/product_offer_bloc.dart';
 import 'package:crocsclub_admin/application/presentation/offers_and_coupons/offers/category_offers_screen.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
