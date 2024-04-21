@@ -28,7 +28,7 @@ class DrawerScreen extends StatelessWidget {
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const OrdersScreen(),
+                builder: (context) => const OrderScreen(),
               ));
             },
           ),
