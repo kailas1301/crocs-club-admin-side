@@ -3,6 +3,8 @@ import 'package:crocsclub_admin/application/business_logic/couponvalidtoggle/blo
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/models/coupon.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/elevatedbutton_widget.dart';
+import 'package:crocsclub_admin/domain/utils/widgets/textformfield_widget.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +35,7 @@ class CouponList extends StatelessWidget {
           );
         } else if (state is CouponsLoaded) {
           return ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(
+            separatorBuilder: (context, index) => const SizedBox(
               height: 5,
             ),
             itemCount: state.coupons.length,
@@ -111,7 +113,7 @@ class CouponList extends StatelessWidget {
           );
         } else if (state is CouponError) {
           return const Center(
-            child: Text('Please wait '),
+            child: SubHeadingTextWidget(title: 'Please wait '),
           );
         } else {
           print(state);
@@ -138,28 +140,34 @@ void showEditCouponDialog(BuildContext context, Coupon coupon) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text('Edit Coupon'),
+        title: const SubHeadingTextWidget(title: 'Edit Coupon'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextFormField(
+            TextFormFieldWidget(
+              hintText: 'Enter the name',
               controller: nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              labelText: 'Name',
             ),
-            TextFormField(
+            kSizedBoxH10,
+            TextFormFieldWidget(
+              hintText: 'Enter the Percentage',
               controller: percentageController,
-              decoration:
-                  const InputDecoration(labelText: 'Discount Percentage'),
+              labelText: 'Discount Percentage',
               keyboardType: TextInputType.number,
             ),
-            TextFormField(
+            kSizedBoxH10,
+            TextFormFieldWidget(
+              hintText: 'Enter the Min Price',
               controller: minimumPriceController,
-              decoration: const InputDecoration(labelText: 'Minimum Price'),
+              labelText: 'Minimum Price',
               keyboardType: TextInputType.number,
             ),
+            kSizedBoxH10,
             Row(
               children: [
-                const Text('Offer is valid'),
+                const SubHeadingTextWidget(title: 'Offer is valid'),
+                kSizedBoxW20,
                 BlocBuilder<CouponValidToggleBloc, CouponValidToggleState>(
                   builder: (context, state) {
                     if (state is ToggleInitialState) {
@@ -186,34 +194,40 @@ void showEditCouponDialog(BuildContext context, Coupon coupon) {
           ],
         ),
         actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: const Text('Cancel'),
-          ),
-          BlocBuilder<CouponValidToggleBloc, CouponValidToggleState>(
-            builder: (context, state) {
-              return TextButton(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButtonWidget(
+                buttonText: 'Cancel',
                 onPressed: () {
-                  // Dispatch an event to update the coupon with the new data
-                  BlocProvider.of<CouponBloc>(context).add(
-                    UpdateCouponEvent(
-                      coupon: Coupon(
-                        id: coupon.id,
-                        name: nameController.text,
-                        discountPercentage:
-                            int.parse(percentageController.text),
-                        minimumPrice: int.parse(minimumPriceController.text),
-                        isAvailable: isAvailable,
-                      ),
-                    ),
-                  );
                   Navigator.of(context).pop();
                 },
-                child: const Text('Save'),
-              );
-            },
+              ),
+              BlocBuilder<CouponValidToggleBloc, CouponValidToggleState>(
+                builder: (context, state) {
+                  return ElevatedButtonWidget(
+                    buttonText: 'Save',
+                    onPressed: () {
+                      // Dispatch an event to update the coupon with the new data
+                      BlocProvider.of<CouponBloc>(context).add(
+                        UpdateCouponEvent(
+                          coupon: Coupon(
+                            id: coupon.id,
+                            name: nameController.text,
+                            discountPercentage:
+                                int.parse(percentageController.text),
+                            minimumPrice:
+                                int.parse(minimumPriceController.text),
+                            isAvailable: isAvailable,
+                          ),
+                        ),
+                      );
+                      Navigator.of(context).pop();
+                    },
+                  );
+                },
+              ),
+            ],
           ),
         ],
       );
