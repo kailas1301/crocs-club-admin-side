@@ -23,3 +23,8 @@ class OrderAlreadyApproved extends OrderState {
   final String message;
   OrderAlreadyApproved(this.message);
 }
+
+class OrderCompletionError extends OrderState {
+  final String message;
+  OrderCompletionError(this.message);
+}

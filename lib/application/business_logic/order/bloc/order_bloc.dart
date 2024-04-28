@@ -35,7 +35,7 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
           emit(OrderLoaded(orders));
         }
       } catch (e) {
-        emit(OrderError(e.toString()));
+        emit(OrderCompletionError(e.toString()));
       }
     });
   }

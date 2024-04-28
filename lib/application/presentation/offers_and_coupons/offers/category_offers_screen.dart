@@ -50,6 +50,7 @@ class CategoryOffersScreen extends StatelessWidget {
   }
 }
 
+
 class CategoryOfferItem extends StatelessWidget {
   final CategoryOffer offer;
 

@@ -60,6 +60,7 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
+// to show a dialougue box to delete the paymentmethod
   void _showDeleteConfirmationDialog(
       BuildContext context, int paymentMethodId) {
     showDialog(
@@ -97,6 +98,7 @@ class PaymentScreen extends StatelessWidget {
     );
   }
 
+// to add new payment method
   void _showAddPaymentDialog(BuildContext context) {
     TextEditingController _paymentNameController = TextEditingController();
 

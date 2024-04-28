@@ -11,7 +11,7 @@ class OrderScreen extends StatelessWidget {
   const OrderScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<OrderBloc>(context).add(LoadOrders(6));
+    BlocProvider.of<OrderBloc>(context).add(LoadOrders(1));
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -27,7 +27,7 @@ class OrderScreen extends StatelessWidget {
             showCustomSnackbar(
                 context, 'Order already approved', kRedColour, kwhiteColour);
           }
-          if (state is OrderError) {
+          if (state is OrderCompletionError) {
             showCustomSnackbar(
                 context, 'Order was not approved', kRedColour, kwhiteColour);
             Navigator.of(context).pop();
@@ -102,7 +102,9 @@ class OrderScreen extends StatelessWidget {
           } else if (state is OrderAlreadyApproved) {
             return const Center(child: Text('Already approved'));
           } else {
-            return Container(); // Placeholder for other states
+            return const Center(
+                child:
+                    CircularProgressIndicator()); // Plaeholder for other states
           }
         },
       ),

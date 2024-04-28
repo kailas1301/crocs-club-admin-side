@@ -126,6 +126,7 @@ class CouponList extends StatelessWidget {
   }
 }
 
+// to show the editing of the coupon
 void showEditCouponDialog(BuildContext context, Coupon coupon) {
   BlocProvider.of<CouponValidToggleBloc>(context).add(ToggleInitial());
   TextEditingController nameController =

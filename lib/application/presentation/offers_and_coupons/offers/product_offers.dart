@@ -15,7 +15,7 @@ class ProductOfferScreen extends StatelessWidget {
       listener: (context, state) {
         if (state is ProductOfferDeleted) {
           showCustomSnackbar(context, 'Product Offer was successfully deleted',
-              kGreenColour, kDarkGreyColour);
+              kRedColour, kDarkGreyColour);
         }
         if (state is ProductOfferError) {
           showCustomSnackbar(context, 'Product Offer was not deleted',
