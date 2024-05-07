@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class PaymentServices {
   Future<int> addPaymentMethod(String paymentMethodName) async {
     final authToken = await getToken();
-    const String apiUrl = 'http://10.0.2.2:8080/admin/payment-method/pay';
+    const String apiUrl = 'http://crocs.crocsclub.shop/admin/payment-method/pay';
     final Map<String, String> headers = {
       'accept': 'application/json',
       'Authorization': authToken ?? '',
@@ -35,7 +35,7 @@ class PaymentServices {
   }
 
   Future<List<PaymentMethod>> getPaymentMethods() async {
-    const String apiUrl = 'http://10.0.2.2:8080/admin/payment-method';
+    const String apiUrl = 'http://crocs.crocsclub.shop/admin/payment-method';
     final authToken = await getToken();
     final Map<String, String> headers = {
       'accept': 'application/json',
@@ -63,7 +63,7 @@ class PaymentServices {
     final authToken =
         await getToken(); // Assuming getToken() fetches your auth token
     const String apiUrl =
-        'http://10.0.2.2:8080/admin/payment-method'; // Assuming this is the correct URL
+        'http://crocs.crocsclub.shop/admin/payment-method'; // Assuming this is the correct URL
     final Uri url = Uri.parse(
         '$apiUrl?id=$paymentMethodId'); // Construct URL with query parameter
 

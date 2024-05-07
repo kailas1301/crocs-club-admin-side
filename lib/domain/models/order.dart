@@ -1,6 +1,6 @@
 class Order {
   final String orderId;
-  final double finalPrice;
+  final dynamic finalPrice;
   final String paymentStatus;
   final String name;
   final String email;

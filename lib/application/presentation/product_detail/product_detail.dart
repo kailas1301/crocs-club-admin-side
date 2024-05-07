@@ -48,7 +48,10 @@ class ProductDetail extends StatelessWidget {
           if (state is ProductLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ProductLoaded) {
-            return buildProductDetail(context, product);
+            return buildProductDetail(
+                context,
+                state.products
+                    .firstWhere((element) => element.id == product.id));
           } else {
             return const Center(child: CircularProgressIndicator());
           }

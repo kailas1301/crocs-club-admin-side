@@ -13,7 +13,7 @@ class LoginBlocBloc extends Bloc<LoginBlocEvent, LoginBlocState> {
       emit(LoginBlocLoading());
       try {
         final response = await httpClient.post(
-          Uri.parse('http://10.0.2.2:8080/admin/adminlogin'),
+          Uri.parse('http://crocs.crocsclub.shop/admin/adminlogin'),
           body: jsonEncode({
             'email': event.email,
             'password': event.password,

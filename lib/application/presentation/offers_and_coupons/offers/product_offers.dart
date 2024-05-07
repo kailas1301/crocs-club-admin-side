@@ -35,11 +35,11 @@ class ProductOfferScreen extends StatelessWidget {
           );
         } else if (state is ProductOfferError) {
           return const Center(
-            child: Text('no offer found'),
+            child: SubHeadingTextWidget(title: 'No offer found'),
           );
         } else {
           return const Center(
-            child: Text('no offer found'),
+            child: SubHeadingTextWidget(title: 'No offer found'),
           );
         }
       },

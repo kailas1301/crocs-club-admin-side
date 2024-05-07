@@ -37,7 +37,7 @@ class CategoryOffersScreen extends StatelessWidget {
           );
         } else if (state is OfferError) {
           return const Center(
-            child: Text('No offer found'),
+            child: SubHeadingTextWidget(title: 'No offer found'),
           );
         } else {
           print(state);

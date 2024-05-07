@@ -16,21 +16,6 @@ class UsersScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const Column(
-                      children: [Text('do you want tologout')],
-                    );
-                  },
-                );
-                adminlogout(context);
-              },
-              icon: const Icon(Icons.logout))
-        ],
         centerTitle: true,
         title: Text(
           'Users',

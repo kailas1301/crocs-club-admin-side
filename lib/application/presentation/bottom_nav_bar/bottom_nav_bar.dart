@@ -56,7 +56,7 @@ class BottomNavBar extends StatelessWidget {
                   ),
                   GButton(
                     icon: Icons.new_label,
-                    text: 'Add Product',
+                    text: 'Add Items',
                     textStyle:
                         const TextStyle(fontSize: 16, color: kwhiteColour),
                     onPressed: () =>

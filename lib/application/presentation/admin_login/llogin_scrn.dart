@@ -28,7 +28,7 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is LoginBlocSuccess) {
             showCustomSnackbar(
-                context, 'Successfully logged in', kGreenColour, kblackColour);
+                context, 'Successfully logged in', kGreenColour, kwhiteColour);
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -38,8 +38,8 @@ class LoginScreen extends StatelessWidget {
             );
           } else if (state is LoginBlocError) {
             Navigator.pop(context);
-            showCustomSnackbar(context, 'Log in was not successfull',
-                kwhiteColour, kblackColour);
+            showCustomSnackbar(context, 'Check username and password',
+                kRedColour, kwhiteColour);
           }
         },
         child: Center(
@@ -60,22 +60,22 @@ class LoginScreen extends StatelessWidget {
 
                   // Email text field
                   TextFormFieldWidget(
-                    labelText: 'E-mail',
+                    labelText: 'Username',
                     controller: emailController,
-                    hintText: 'Enter Your E-mail',
+                    hintText: 'Enter Your Username',
                     prefixIcon: Icons.email,
                     validatorFunction: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'E-mail is required';
+                        return 'Username is required';
                       }
-                      final emailRegex = RegExp(
-                        r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                        caseSensitive: false,
-                        multiLine: false,
-                      );
-                      if (!emailRegex.hasMatch(value)) {
-                        return 'Please enter a valid E-mail';
-                      }
+                      // final emailRegex = RegExp(
+                      //   r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                      //   caseSensitive: false,
+                      //   multiLine: false,
+                      // );
+                      // if (!emailRegex.hasMatch(value)) {
+                      //   return 'Please enter a valid E-mail';
+                      // }
                       return null; // Valid
                     },
                   ),

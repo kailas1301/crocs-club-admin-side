@@ -61,10 +61,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             await productservice.updateStock(event.productId, event.newStock);
 
         if (response.statusCode == 200 || response.statusCode == 201) {
-          final productslist = await productservice.getProducts();
-          print('the length of productlist from is ${productslist}');
-          emit(ProductLoaded(products: productslist));
           emit(ProductStockUpdated());
+          final productslist = await productservice.getProducts();
+          emit(ProductLoaded(products: productslist));
         } else {
           print('Failed to update stock: ${response.statusMessage}');
           emit(ProductError());
@@ -80,9 +79,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         final response = await productservice.deleteInventory(event.productId);
 
         if (response.statusCode == 200) {
+          emit(ProductDeleted());
           final productslist = await productservice.getProducts();
           emit(ProductLoaded(products: productslist));
-          emit(ProductDeleted());
         } else {
           print('Failed to delete product: ${response.statusMessage}');
           emit(ProductError());
@@ -98,8 +97,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       print('upload image event is caled');
       try {
         final token = await getToken();
-        final url =
-            Uri.parse('http://10.0.2.2:8080/admin/inventories/uploadimages');
+        final url = Uri.parse(
+            'http://crocs.crocsclub.shop/admin/inventories/uploadimages');
         final multipartRequest = MultipartRequest('POST', url);
         multipartRequest.fields['inventory_id'] = event.inventoryId.toString();
         for (final image in event.images) {

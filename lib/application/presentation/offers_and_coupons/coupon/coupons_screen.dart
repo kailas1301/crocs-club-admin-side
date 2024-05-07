@@ -113,7 +113,7 @@ class CouponList extends StatelessWidget {
           );
         } else if (state is CouponError) {
           return const Center(
-            child: SubHeadingTextWidget(title: 'Please wait '),
+            child: SubHeadingTextWidget(title: 'No coupon found'),
           );
         } else {
           print(state);

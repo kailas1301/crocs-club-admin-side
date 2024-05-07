@@ -23,29 +23,20 @@ class AddCouponForm extends StatelessWidget {
         centerTitle: true,
         title: const SubHeadingTextWidget(title: 'Add Coupon'),
       ),
-      body: BlocListener<CouponBloc, CouponState>(
-        listener: (context, state) {
-          if (state is AddCouponInProgress) {
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (context) => Container(
-                alignment: Alignment.center,
-                child: const AlertDialog(
-                  content: CircularProgressIndicator(),
-                ),
-              ),
-            );
-          } else if (state is AddCouponSuccess) {
-            Navigator.of(context).pop();
-            showCustomSnackbar(
-                context, state.message, kGreenColour, kblackColour);
-          } else if (state is AddCouponFailure) {
-            Navigator.of(context).pop();
-            showCustomSnackbar(context, state.error, kRedColour, kwhiteColour);
-          }
-        },
-        child: Padding(
+      body: BlocConsumer<CouponBloc, CouponState>(listener: (context, state) {
+        if (state is AddCouponSuccess) {
+          Navigator.of(context).pop();
+          showCustomSnackbar(
+              context, state.message, kGreenColour, kblackColour);
+        } else if (state is AddCouponFailure) {
+          Navigator.of(context).pop();
+          showCustomSnackbar(context, state.error, kRedColour, kwhiteColour);
+        }
+      }, builder: (context, state) {
+        if (state is AddCouponInProgress) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        return Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: formKey,
@@ -119,8 +110,8 @@ class AddCouponForm extends StatelessWidget {
               ],
             ),
           ),
-        ),
-      ),
+        );
+      }),
     );
   }
 }

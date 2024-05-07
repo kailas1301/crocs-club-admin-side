@@ -100,11 +100,12 @@ class OrderScreen extends StatelessWidget {
               },
             );
           } else if (state is OrderAlreadyApproved) {
-            return const Center(child: Text('Already approved'));
+            return const Center(
+                child: SubHeadingTextWidget(title: 'Already approved'));
           } else {
             return const Center(
-                child:
-                    CircularProgressIndicator()); // Plaeholder for other states
+                child: SubHeadingTextWidget(title: 'No orders found'));
+// Plaeholder for other states
           }
         },
       ),

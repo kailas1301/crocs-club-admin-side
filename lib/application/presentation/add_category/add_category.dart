@@ -22,9 +22,7 @@ class AddCategoryScrn extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           if (state is CategoryLoading) {
-            Future.delayed(const Duration(milliseconds: 500), () {
-              return const Center(child: CircularProgressIndicator());
-            });
+            return const Center(child: CircularProgressIndicator());
           } else if (state is CategoryLoaded) {
             return Column(
               children: [

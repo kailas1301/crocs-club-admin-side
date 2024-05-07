@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 
 class OfferServices {
-  static const String baseUrl = 'http://10.0.2.2:8080/admin';
+  static const String baseUrl = 'http://crocs.crocsclub.shop/admin';
   static const String categoryOfferEndpoint = '/offer/category-offer';
   static const String getCategoryOfferEndpoint = '/offer/get-category-offer';
   static const String expireCategoryOfferEndpoint =

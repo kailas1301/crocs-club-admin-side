@@ -152,12 +152,13 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
                       kSizedBoxH10,
                       IconTextButtonWidget(
                         textwidget: const SubHeadingTextWidget(
+                          textsize: 13,
                           title: 'Update Stock',
                           textColor: Colors.white,
                         ),
                         color: kPrimaryDarkColor,
                         height: .08,
-                        width: .6,
+                        width: .45,
                         buttonText: 'Update Stock',
                         icon: Icons.edit,
                         onPressed: () {
@@ -168,11 +169,12 @@ Widget buildProductDetail(BuildContext context, ProductFromApi product) {
                       IconTextButtonWidget(
                         textwidget: const SubHeadingTextWidget(
                           title: 'Delete Product',
+                          textsize: 13,
                           textColor: Colors.white,
                         ),
                         color: kRedColour,
                         height: .08,
-                        width: .6,
+                        width: .45,
                         buttonText: 'Delete Product',
                         icon: Icons.delete,
                         onPressed: () {

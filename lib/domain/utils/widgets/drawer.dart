@@ -1,6 +1,5 @@
 import 'package:crocsclub_admin/application/presentation/order_screen/order_screen.dart';
 import 'package:crocsclub_admin/application/presentation/payment/payemnt_screen.dart';
-import 'package:crocsclub_admin/application/presentation/sales_screen.dart/sales_screen.dart';
 import 'package:crocsclub_admin/domain/core/constants/constants.dart';
 import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 import 'package:crocsclub_admin/domain/utils/widgets/textwidgets.dart';
@@ -23,25 +22,12 @@ class DrawerScreen extends StatelessWidget {
             leading:
                 const Icon(Icons.person), // Leading widget for this list tile
             title: const SubHeadingTextWidget(
-              title: 'Order',
+              title: 'Orders',
               textColor: kDarkGreyColour,
             ),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const OrderScreen(),
-              ));
-            },
-          ),
-          ListTile(
-            leading:
-                const Icon(Icons.money), // Leading widget for this list tile
-            title: const SubHeadingTextWidget(
-              title: 'Sales',
-              textColor: kDarkGreyColour,
-            ),
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const SalesScreen(),
               ));
             },
           ),

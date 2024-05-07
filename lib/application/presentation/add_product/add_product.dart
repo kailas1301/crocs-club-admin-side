@@ -26,10 +26,6 @@ class AddInventoryItemScreen extends StatelessWidget {
     'M8',
     'M9',
     'M10',
-    'K1',
-    'K2',
-    'K3',
-    'K4'
   ];
 
   final TextEditingController nameController = TextEditingController();

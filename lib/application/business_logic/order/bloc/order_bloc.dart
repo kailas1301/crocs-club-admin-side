@@ -12,9 +12,11 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     on<LoadOrders>((event, emit) async {
       emit(OrderLoading());
       try {
-        final orders = await orderServices.getAllOrders(event.page);
+        final List<Order> orders = await orderServices.getAllOrders();
         emit(OrderLoaded(orders));
+        print("successfully emited the orders");
       } catch (e) {
+        print(e.toString());
         emit(OrderError(e.toString()));
       }
     });
@@ -22,16 +24,21 @@ class OrderBloc extends Bloc<OrderEvent, OrderState> {
     on<ApproveOrder>((event, emit) async {
       emit(OrderLoading());
       try {
+        final result1 = await orderServices.approveOrder(event.orderId);
         final result = await orderServices.approveOrder(event.orderId);
-        if (result == "success") {
-          emit(OrderLoaded((state as OrderLoaded).orders)); // Refresh orders
-        } else if (result == "already_approved") {
+        print("result is $result");
+        if (result == 200 && result1 == 200) {
+          emit(OrderConfirmed());
+          final List<Order> orders = await orderServices.getAllOrders();
+          emit(OrderLoaded(orders));
+        } else if (result == 201) {
           emit(OrderAlreadyApproved("Order is already approved or processed"));
-          final orders = await orderServices.getAllOrders(1);
+          final orders = await orderServices.getAllOrders();
           emit(OrderLoaded(orders));
         } else {
           emit(OrderError('Failed to approve order'));
-          final orders = await orderServices.getAllOrders(1);
+          print("failed to approve order");
+          final orders = await orderServices.getAllOrders();
           emit(OrderLoaded(orders));
         }
       } catch (e) {

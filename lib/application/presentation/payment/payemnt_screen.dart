@@ -45,9 +45,11 @@ class PaymentScreen extends StatelessWidget {
               },
             );
           } else if (state is PaymentError) {
-            return Center(child: Text(state.message));
+            return const Center(
+                child: SubHeadingTextWidget(title: "No payment methods found"));
           } else {
-            return const Center(child: Text('Unexpected state'));
+            return const Center(
+                child: Center(child: CircularProgressIndicator()));
           }
         },
       ),
