@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: Image.asset('assets/images/logo.png'),
+      splash: Image.asset('assets/images/CROCS.png'),
       splashIconSize: 400,
       nextScreen: BlocProvider<SplashBloc>(
         create: (context) => SplashBloc()..add(SetSplash()),

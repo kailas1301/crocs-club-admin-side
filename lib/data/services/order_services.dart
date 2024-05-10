@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 class OrderServices {
   Future<List<Order>> getAllOrders() async {
     final authToken = await getToken();
-    const apiUrl = 'http://crocs.crocsclub.shop/admin/order/get';
+    const apiUrl = 'https://crocs.crocsclub.shop/admin/order/get';
     final headers = {
       'accept': 'application/json',
       'Authorization': authToken ?? '',
@@ -34,7 +34,7 @@ class OrderServices {
   Future<int> approveOrder(int orderId) async {
     final authToken = await getToken();
     final apiUrl =
-        'http://crocs.crocsclub.shop/admin/order/status?order_id=$orderId';
+        'https://crocs.crocsclub.shop/admin/order/status?order_id=$orderId';
     final headers = {
       'accept': 'application/json',
       'Authorization': authToken ?? '',

@@ -4,7 +4,7 @@ import 'package:crocsclub_admin/domain/utils/functions/functions.dart';
 import 'package:http/http.dart' as http;
 
 class AdminCategoryRepo {
-  final String baseUrl = 'http://crocs.crocsclub.shop/admin/category';
+  final String baseUrl = 'https://crocs.crocsclub.shop/admin/category';
   final HttpClient client = HttpClient();
 
   Future<String> addCategory(String name) async {
@@ -80,7 +80,7 @@ class AdminCategoryRepo {
   Future<void> deleteCategory(int categoryId) async {
     print('categoryid is $categoryId');
     final url =
-        Uri.parse('http://crocs.crocsclub.shop/admin/category?id=$categoryId');
+        Uri.parse('https://crocs.crocsclub.shop/admin/category?id=$categoryId');
     String? token = await getToken();
 
     try {

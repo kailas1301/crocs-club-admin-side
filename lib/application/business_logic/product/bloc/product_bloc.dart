@@ -98,7 +98,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       try {
         final token = await getToken();
         final url = Uri.parse(
-            'http://crocs.crocsclub.shop/admin/inventories/uploadimages');
+            'https://crocs.crocsclub.shop/admin/inventories/uploadimages');
         final multipartRequest = MultipartRequest('POST', url);
         multipartRequest.fields['inventory_id'] = event.inventoryId.toString();
         for (final image in event.images) {

@@ -5,7 +5,7 @@ import 'package:crocsclub_admin/domain/models/users.dart';
 
 class UsersRepository {
   Future<List<User>> fetchUsers() async {
-    String baseUrl = 'http://crocs.crocsclub.shop/admin/users?page=1';
+    String baseUrl = 'https://crocs.crocsclub.shop/admin/users?page=1';
     try {
       final token = await getToken();
       final url = Uri.parse(baseUrl);
@@ -37,8 +37,8 @@ class UsersRepository {
   ) async {
     try {
       final token = await getToken();
-      final url =
-          Uri.parse('http://crocs.crocsclub.shop/admin/users/block?id=$userId');
+      final url = Uri.parse(
+          'https://crocs.crocsclub.shop/admin/users/block?id=$userId');
       final response = await http.put(
         url,
         headers: {'Authorization': 'Bearer $token'},
@@ -61,7 +61,7 @@ class UsersRepository {
     try {
       final token = await getToken();
       final url = Uri.parse(
-          'http://crocs.crocsclub.shop/admin/users/unblock?id=$userId');
+          'https://crocs.crocsclub.shop/admin/users/unblock?id=$userId');
       final response = await http.put(
         url,
         headers: {'Authorization': 'Bearer $token'},

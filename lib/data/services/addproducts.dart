@@ -22,7 +22,7 @@ class ProductService {
 
     try {
       final response = await dio.post(
-        'http://crocs.crocsclub.shop/admin/inventories',
+        'https://crocs.crocsclub.shop/admin/inventories',
         data: formData,
         options: Options(contentType: Headers.formUrlEncodedContentType),
       );
@@ -35,7 +35,8 @@ class ProductService {
   Future<List<ProductFromApi>> getProducts() async {
     try {
       final dio = Dio();
-      final response = await dio.get('http://crocs.crocsclub.shop/admin/inventories');
+      final response =
+          await dio.get('https://crocs.crocsclub.shop/admin/inventories');
 
       if (response.statusCode == 200) {
         final responseData = response.data as Map<String, dynamic>;
@@ -67,7 +68,7 @@ class ProductService {
 
     try {
       final response = await dio.put(
-        'http://crocs.crocsclub.shop/admin/inventories/stock',
+        'https://crocs.crocsclub.shop/admin/inventories/stock',
         data: jsonData,
         options: Options(contentType: Headers.jsonContentType),
       );
@@ -84,7 +85,7 @@ class ProductService {
 
     try {
       final response = await dio.delete(
-        'http://crocs.crocsclub.shop/admin/inventories',
+        'https://crocs.crocsclub.shop/admin/inventories',
         queryParameters: {'id': inventoryId},
         options: Options(contentType: Headers.jsonContentType),
       );

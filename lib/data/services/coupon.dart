@@ -8,7 +8,7 @@ class CouponServices {
 // Your addCoupon function
   Future<String> addCoupon(Coupon coupon) async {
     print('ADD coupon function was called');
-    const url = 'http://crocs.crocsclub.shop/admin/coupon';
+    const url = 'https://crocs.crocsclub.shop/admin/coupon';
     final token = await getToken();
     final response = await http.post(
       Uri.parse(url),
@@ -44,7 +44,7 @@ class CouponServices {
 
 // Function to retrieve all coupons
   Future<List<Coupon>> getAllCoupons() async {
-    const url = 'http://crocs.crocsclub.shop/admin/coupon';
+    const url = 'https://crocs.crocsclub.shop/admin/coupon';
     final token = await getToken();
     final response = await http.get(
       Uri.parse(url),
@@ -68,7 +68,7 @@ class CouponServices {
 
   // Your updateCoupon function
   Future<String> updateCoupon(Coupon coupon) async {
-    const url = 'http://crocs.crocsclub.shop/admin/coupon';
+    const url = 'https://crocs.crocsclub.shop/admin/coupon';
     final token = await getToken();
     final response = await http.patch(
       Uri.parse(url),

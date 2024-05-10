@@ -103,8 +103,7 @@ class OrderScreen extends StatelessWidget {
             return const Center(
                 child: SubHeadingTextWidget(title: 'Already approved'));
           } else {
-            return const Center(
-                child: SubHeadingTextWidget(title: 'No orders found'));
+            return const Center(child: CircularProgressIndicator());
 // Plaeholder for other states
           }
         },
