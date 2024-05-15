@@ -53,8 +53,8 @@ class LoginScreen extends StatelessWidget {
                   // Crocs logo
                   Image.asset(
                     'assets/images/CROCS.png',
-                    height: 100,
-                    width: 100,
+                    height: 250,
+                    width: 250,
                   ),
                   kSizedBoxH20, // Spacing
 
@@ -68,14 +68,6 @@ class LoginScreen extends StatelessWidget {
                       if (value == null || value.isEmpty) {
                         return 'Username is required';
                       }
-                      // final emailRegex = RegExp(
-                      //   r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                      //   caseSensitive: false,
-                      //   multiLine: false,
-                      // );
-                      // if (!emailRegex.hasMatch(value)) {
-                      //   return 'Please enter a valid E-mail';
-                      // }
                       return null; // Valid
                     },
                   ),

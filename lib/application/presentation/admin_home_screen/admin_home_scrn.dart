@@ -25,7 +25,7 @@ class AdminHome extends StatelessWidget {
             )
           ],
           title: const AppBarTextWidget(
-            title: 'Crocs Club',
+            title: 'Step In Style',
           ),
           elevation: 0,
           centerTitle: true,
